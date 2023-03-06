@@ -32,29 +32,30 @@ const App = () => {
   };
 
   return (
-    <Layout className="site-layout" style={{display: 'flex', flexDirection: 'column', backgroundColor: Colors.bgBelow }}>
-      <HeaderContainer/>
-
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-        <Sider theme='dark' style={styleSheet.sider} trigger={null} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+    <Layout style={{display: 'flex', flexDirection:'row', backgroundColor: Colors.bgBelow }}>
+      {/* <HeaderContainer/> */}
+      <Sider collapsible theme='dark' style={{flex: 1}} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <div className="logo"></div>
-          <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='vertical' items={ItemsTab} />
+          <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
         </Sider>
-        <Content style={styleSheet.content}>
+      <div style={{display: 'flex', flex: 5, flexDirection: 'column'}}>
+         <HeaderContainer/>
+         <Content style={styleSheet.content}>
           <StatusContainer />
           <ChartContainer />
         </Content>
+        <FooterContainer/>
       </div>
 
-      <FooterContainer/>
+      {/* <FooterContainer/> */}
     </Layout>
   );
 }
 
 const styleSheet = {
   sider: {
-    margin: '8px 8px 8px',
-    minHeight: 550,
+    // margin: '8px 8px 8px',
+    // minHeight: 550,
     borderRadius: 8,
     flex: 1,
   },
@@ -79,8 +80,8 @@ const styleSheet = {
     fontSize: 24,
   },
   content: {
-    margin: '16px 8px 0 8px',
-    minHeight: 550,
+    margin: '16px 0 0 16px',
+    // minHeight: 550,
     borderRadius: 8,
     backgroundColor: "transparent",
     flex: 6

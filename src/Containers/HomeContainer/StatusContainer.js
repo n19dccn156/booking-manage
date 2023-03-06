@@ -20,7 +20,7 @@ const styleSheet = {
     display: "flex", 
     justifyContent: "space-evenly", 
     backgroundColor: '#f0f0f0', 
-    borderRadius: 5
+    borderLeft: 8
   }
 }
 

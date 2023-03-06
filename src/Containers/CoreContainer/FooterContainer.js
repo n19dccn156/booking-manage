@@ -14,11 +14,13 @@ const FooterContainer = () => {
 
 const styleSheet = {
   footer: {
-    margin: '0px 16px 32px 8px',
+    margin: '16px 0 0 16px',
+    // margin: '0px 16px 32px 8px',
     textAlign: "center",
     fontSize: 12,
     backgroundColor: '#f0f0f0',
-    borderRadius: 5
+    borderTopLeftRadius: 8, 
+    borderBottomLeftRadius: 8  
   }
 }
 

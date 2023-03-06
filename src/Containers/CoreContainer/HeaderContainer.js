@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import {
-  ArrowRightOutlined,
-  ArrowLeftOutlined,
-  BellOutlined,
-  SearchOutlined,
+	ArrowRightOutlined,
+	ArrowLeftOutlined,
+	BellOutlined,
+	SearchOutlined,
+	SettingOutlined,
 } from '@ant-design/icons';
 import { Space, Badge, Avatar, Col, Row, Button } from 'antd';
 import Search from 'antd/es/input/Search';
@@ -17,59 +18,67 @@ const HeaderContainer = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	console.log('render Header')
 	return (
-		// <div>
-			<Header style={styleSheet.header}>
-				<Row style={{display: 'flex'}}>
-					<Col span={2} style={styleSheet.columnPanel}>
-						{React.createElement(
-							collapsed ? ArrowRightOutlined : ArrowLeftOutlined, 
-							{className: 'trigger', onClick: () => setCollapsed(!collapsed)}
-						)}
-					</Col>
-					<Col span={12} style={styleSheet.column}>
-						<Search placeholder="input search text" prefix={<SearchOutlined />} enterButton={"Search"}/>
-					</Col>
-					<Col span={2} push={3} style={styleSheet.column}>
-						<Space>
-							<Badge count={1}>
-								<Avatar style={styleSheet.avatar} shape='square' icon={<BellOutlined />} />
-							</Badge>
-						</Space>
-					</Col>
-					<Col span={4} push={3} style={styleSheet.column}>
-						<Button>{"Nguyễn Sang".substring(0, 15) + "..."}</Button>
-					</Col>
-					<Col span={4} style={styleSheet.column}>
-						<Avatar shape='circle' src="https://joesch.moe/api/v1/random" />
-					</Col>
-				</Row>
-			</Header>
-		// </div>
+		<Header style={styleSheet.header}>
+			<div style={styleSheet.search}>
+				<Search placeholder="input search text" prefix={<SearchOutlined />} enterButton={"Search"} />
+			</div>
+			<div style={styleSheet.bell}>
+				<Space style={{paddingRight: 16}}>
+					<Badge count={1}>
+						<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<BellOutlined />} />
+					</Badge>
+				</Space>
+				<Space>
+					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
+				</Space>
+			</div>
+			{/* <div style={styleSheet.setting}>
+				<Space>
+					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
+				</Space>
+			</div> */}
+			<div style={styleSheet.avatar}>
+				<Button>{"Nguyễn Sang".substring(0, 15) + "..."}</Button>
+				<Avatar shape='circle' src="https://joesch.moe/api/v1/random" />
+			</div>
+		</Header>
 	)
 }
 
 const styleSheet = {
 	header: {
-		margin: '16px 16px 0 8px', 
-		borderRadius: 8, 
+		display: 'flex',
+		flexDirection: 'row',
+		marginLeft: 16,
+		borderBottomLeftRadius: 8,
 		backgroundColor: '#f0f0f0',
 	},
-	columnPanel: { 
-		display: "flex", 
-		alignItems: "center", 
-		justifyContent: "flex-start",
+	search: {
+		display: 'flex', 
+		flex: 3, 
+		flexWrap: 'wrap',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
-	column: { 
-		display: "flex", 
-		alignItems: "center", 
-		justifyContent: "flex-end",
+	bell: {
+		display: 'flex', 
+		flex: 1, 
+		alignItems: 'center',
+		justifyContent: 'flex-end',
 	},
+	setting: {
+		display: 'flex', 
+		flex: 1, 
+		alignItems: 'center',
+		justifyContent: 'between',
+	}, 
 	avatar: {
-    backgroundColor: "transparent", 
-    color: "#0958d9", 
-    fontSize: 24,
-  },
+		display: 'flex', 
+		flex: 1, 
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	}
 };
-  
+
 
 export default HeaderContainer;
