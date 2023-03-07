@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 
 import { Layout, Menu } from 'antd';
-import Colors from "../../Constants/Colors";
-import '../../index.css';
-import ItemsTab from '../../Constants/ItemsTab';
-import StatusContainer from '../../Containers/HomeContainer/StatusContainer';
-import ChartContainer from '../../Containers/HomeContainer/ChartContainer';
-import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
-import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
+import Colors from "../../../Constants/Colors";
+import '../../../index.css';
+import ItemsTab from '../../../Constants/ItemsTab';
+import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
+import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
+import AwaitContainer from '../../../Containers/OrderContainer/AwaitContainer';
 const { Sider, Content } = Layout;
 
-const StatisticPage = () => {
+const OrderAwaitPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('4');
+  const [current, setCurrent] = useState('2');
   // const loggedIn = useSelector((state) => state.loggedIn);
   // console.log(loggedIn)
   // console.log(current)
@@ -31,8 +30,7 @@ const StatisticPage = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-          <StatusContainer />
-          <ChartContainer />
+        <AwaitContainer/>
         </Content>
         <FooterContainer />
       </div>
@@ -62,4 +60,4 @@ const styleSheet = {
   }
 }
 
-export default StatisticPage;
+export default OrderAwaitPage;

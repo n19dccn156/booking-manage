@@ -11,7 +11,7 @@ const ChartContainer = () => {
           <Title style={{display: "flex", justifyContent: "center"}} level={5}>Doanh thu</Title>
           <ColumnChart/>
         </div> 
-        <div style={{display: "flex", flexDirection: "column", flex: 1, maxWidth: 600, backgroundColor: '#f0f0f0', borderTopLeftRadius: 8, borderBottomLeftRadius: 8}}>
+        <div style={{display: "flex", flexDirection: "column", flex: 1, maxWidth: 600, backgroundColor: '#f0f0f0', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, marginRight: 0}}>
           <Title style={styleSheet.title} level={5}>Tỉ lệ</Title>
           <PieCharts />
         </div>               
@@ -24,10 +24,11 @@ const styleSheet = {
   row: {
     display: 'flex',
     flexWrap: 'wrap',
-    flexDirection: "column", 
+    flexDirection: "row", 
     justifyContent: "between",
     marginTop: 16, 
-    height: 380
+    height: 400,
+    maxHeight: 400,
   },
   title: {
     display: "flex", 

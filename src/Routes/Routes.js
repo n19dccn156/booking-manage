@@ -5,28 +5,28 @@ import LoginPage from '../Pages/LoginPage';
 import StatisticPage from '../Pages/Tab/StatisticPage';
 import RoomPage from '../Pages/Tab/RoomPage';
 import HotelPage from '../Pages/Tab/HotelPage';
-import DashBoardPage from '../Pages/DashboardPage';
-import OrderAwaitPage from '../Pages/Tab/OrderPage/OrderAwaitPage';
-import OrderComfirmPage from '../Pages/Tab/OrderPage/OrderComfirmPage';
-import OrderOngoingPage from '../Pages/Tab/OrderPage/OrderOngoingPage';
-import OrderCompletePage from '../Pages/Tab/OrderPage/OrderCompletePage';
-import OrderCancelPage from '../Pages/Tab/OrderPage/OrderCancelPage';
+import DashBoardPage from '../Pages/Tab/DashboardPage';
+import OrderAwaitPage from '../Pages/Tab/Order/OrderAwaitPage';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-          <Route exact path='/login' element={<LoginPage/>}/>
-
-          <Route path='/' element={<DashBoardPage/>}>
-            <Route exact path='hotel' element={<HotelPage/>}/>
-            <Route exact path='room' element={<RoomPage/>}/>
-            <Route exact path='statistic' element={<StatisticPage/>}/>
-            <Route exact path='/order/await' element={<OrderAwaitPage/>}/>
-            <Route exact path='/order/comfirm' element={<OrderComfirmPage/>}/>
-            <Route exact path='/order/ongoing' element={<OrderOngoingPage/>}/>
-            <Route exact path='/order/complete' element={<OrderCompletePage/>}/>
-            <Route exact path='/order/cancel' element={<OrderCancelPage/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
+          {/* buoc nay dung de xac thuc */}
+          <Route>
+            <Route path='/' element={<DashBoardPage/>}/>
+            <Route path='hotel' element={<HotelPage/>}/>
+            <Route path='room' element={<RoomPage/>}/>
+            <Route path='statistic' element={<StatisticPage/>}/>
+            <Route path='order/await' element={<OrderAwaitPage/>}/>
+            {/* <Route>
+              <Route exact path='/order/await' element={<AwaitContainer/>}/>
+              <Route exact path='/order/comfirm' element={<ComfirmContainer/>}/>
+              <Route exact path='/order/ongoing' element={<OngoingContainer/>}/>
+              <Route exact path='/order/complete' element={<CompleteContainer/>}/>
+              <Route exact path='/order/cancel' element={<CancelContainer/>}/>
+            </Route> */}
           </Route>
       </Routes>
     </BrowserRouter>

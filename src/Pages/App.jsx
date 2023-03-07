@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 
-// import {
-//   ArrowLeftOutlined,
-//   ArrowRightOutlined,
-//   BellOutlined,
-//   SearchOutlined,
-// } from '@ant-design/icons';
-import { Avatar, Badge, Button, Col, Layout, Menu, Row, Space } from 'antd';
-// import Search from 'antd/es/input/Search';
-// import { Navigate, Route, Routes } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
 import Colors from "../Constants/Colors";
 import '../index.css';
 import ItemsTab from '../Constants/ItemsTab';
-import { useSelector } from 'react-redux';
 import StatusContainer from '../Containers/HomeContainer/StatusContainer';
 import ChartContainer from '../Containers/HomeContainer/ChartContainer';
 import HeaderContainer from '../Containers/CoreContainer/HeaderContainer';
@@ -26,54 +17,30 @@ const App = () => {
   // console.log(loggedIn)
   // console.log(current)
   // console.log(collapsed.valueOf)
-  
+
   const clickTab = (e) => {
     setCurrent(e.key);
   };
 
   return (
-    <Layout style={{display: 'flex', flexDirection:'row', backgroundColor: Colors.bgBelow }}>
-      {/* <HeaderContainer/> */}
-      <Sider collapsible theme='dark' style={{flex: 1}} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div className="logo"></div>
-          <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
-        </Sider>
-      <div style={{display: 'flex', flex: 5, flexDirection: 'column'}}>
-         <HeaderContainer/>
-         <Content style={styleSheet.content}>
+    <Layout style={{ display: 'flex', flexDirection: 'row', backgroundColor: Colors.bgBelow }}>
+      <Sider collapsible theme='dark' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <div className="logo"></div>
+        <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
+      </Sider>
+      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
+        <HeaderContainer />
+        <Content style={styleSheet.content}>
           <StatusContainer />
           <ChartContainer />
         </Content>
-        <FooterContainer/>
+        <FooterContainer />
       </div>
-
-      {/* <FooterContainer/> */}
     </Layout>
   );
 }
 
 const styleSheet = {
-  sider: {
-    // margin: '8px 8px 8px',
-    // minHeight: 550,
-    borderRadius: 8,
-    flex: 1,
-  },
-  header: {
-    margin: '0px 8px 0 8px',
-    borderRadius: 8,
-    backgroundColor: '#f0f0f0',
-  },
-  columnPanel: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  column: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
   avatar: {
     backgroundColor: "transparent",
     color: "#0958d9",
