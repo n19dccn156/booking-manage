@@ -11,7 +11,7 @@ import OrderComfirmPage from '../Pages/Tab/Order/OrderComfirmPage';
 import OrderOngoingPage from '../Pages/Tab/Order/OrderOngoingPage';
 import OrderCompletePage from '../Pages/Tab/Order/OrderCompletePage';
 import OrderCancelPage from '../Pages/Tab/Order/OrderCancelPage';
-import AuthorizationComponent from '../Components/DashBoardComponent/AuthorizationComponent';
+import AuthorizationComponent from '../Components/CoreComponent/AuthorizationComponent';
 
 const Router = () => {
   return (

@@ -70,7 +70,7 @@ const OngoingContainer = () => {
 
 const styleSheet = {
   content: {
-    margin: '8px 16px 8px 8px',
+    margin: '8px 0 8px',
     minHeight: 520,
     borderRadius: 8,
     backgroundColor: Colors.bgAbove,

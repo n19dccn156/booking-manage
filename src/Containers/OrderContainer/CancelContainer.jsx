@@ -17,7 +17,7 @@ const onChange = (key) => {
 const items2 = [
   {
     key: '0',
-    label: (<Link style={{color: 'black'}} to={'/order/await'}>Chờ xác nhận</Link>),
+    label: (<Link style={{color: 'black'}} to={'/order/await'} className='active'>Chờ xác nhận</Link>),
     //   children: `Content of Tab Pane 1`,
   },
   {
@@ -70,7 +70,7 @@ const CancelContainer = () => {
 
 const styleSheet = {
   content: {
-    margin: '8px 16px 8px 8px',
+    margin: '8px 0 8px',
     minHeight: 520,
     borderRadius: 8,
     backgroundColor: Colors.bgAbove,

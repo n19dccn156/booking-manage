@@ -5,6 +5,9 @@ const Constants = {
     LOGOUT: 'LOGOUT',
     LEFT: 'LEFT',
     RIGHT: 'RIGHT',
+    SET_ROLE: 'SET',
+    REMOVE_ROLE: 'REMOVE',
+    URL_AUTHOZ: '/authorized',
 }
 
 export default Constants;
