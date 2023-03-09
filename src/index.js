@@ -1,15 +1,15 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import DashboardPage from './Pages/Tab/DashboardPage';
-import Routes from './Routes/Routes';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Reducers from './Reducers/Reducers';
+import Router from './Routes/Router';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// const stores = configureStore({reducer: Reducers})
+const stores = configureStore({ reducer: Reducers })
 
 root.render(
-  <Routes/>
-  // <BrowserRouter>
-  //  <App />
-  // </BrowserRouter>
+  <Provider store={stores}>
+    <Router />
+  </Provider>
 );

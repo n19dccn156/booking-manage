@@ -6,12 +6,12 @@ import '../../../index.css';
 import ItemsTab from '../../../Constants/ItemsTab';
 import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
 import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
-import AwaitContainer from '../../../Containers/OrderContainer/AwaitContainer';
+import CancelContainer from '../../../Containers/OrderContainer/CancelContainer';
 const { Sider, Content } = Layout;
 
-const OrderAwaitPage = () => {
+const OrderCancelPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('2');
+  const [current, setCurrent] = useState('1');
   // const loggedIn = useSelector((state) => state.loggedIn);
   // console.log(loggedIn)
   // console.log(current)
@@ -30,7 +30,7 @@ const OrderAwaitPage = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-        <AwaitContainer/>
+        <CancelContainer/>
         </Content>
         <FooterContainer />
       </div>
@@ -60,4 +60,4 @@ const styleSheet = {
   }
 }
 
-export default OrderAwaitPage;
+export default OrderCancelPage;

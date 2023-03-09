@@ -11,7 +11,7 @@ const { Sider, Content } = Layout;
 
 const OrderAwaitPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('2');
+  const [current, setCurrent] = useState('1');
   // const loggedIn = useSelector((state) => state.loggedIn);
   // console.log(loggedIn)
   // console.log(current)

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
-	ArrowRightOutlined,
-	ArrowLeftOutlined,
 	BellOutlined,
 	SearchOutlined,
 	SettingOutlined,
 } from '@ant-design/icons';
-import { Space, Badge, Avatar, Col, Row, Button } from 'antd';
+import { Space, Badge, Avatar, Button } from 'antd';
 import Search from 'antd/es/input/Search';
 import { Layout } from 'antd';
 import '../../index.css';
@@ -15,8 +13,6 @@ import '../../index.css';
 const { Header } = Layout;
 
 const HeaderContainer = () => {
-	const [collapsed, setCollapsed] = useState(false);
-	console.log('render Header')
 	return (
 		<Header style={styleSheet.header}>
 			<div style={styleSheet.search}>
@@ -32,11 +28,6 @@ const HeaderContainer = () => {
 					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
 				</Space>
 			</div>
-			{/* <div style={styleSheet.setting}>
-				<Space>
-					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
-				</Space>
-			</div> */}
 			<div style={styleSheet.avatar}>
 				<Button>{"Nguyễn Sang".substring(0, 15) + "..."}</Button>
 				<Avatar shape='circle' src="https://joesch.moe/api/v1/random" />

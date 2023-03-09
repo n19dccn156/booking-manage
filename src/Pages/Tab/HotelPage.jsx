@@ -4,8 +4,6 @@ import { Layout, Menu } from 'antd';
 import Colors from "../../Constants/Colors";
 import '../../index.css';
 import ItemsTab from '../../Constants/ItemsTab';
-import StatusContainer from '../../Containers/HomeContainer/StatusContainer';
-import ChartContainer from '../../Containers/HomeContainer/ChartContainer';
 import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
 import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
 const { Sider, Content } = Layout;
@@ -31,8 +29,8 @@ const HotelPage = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-          <StatusContainer />
-          <ChartContainer />
+          {/* <StatusContainer />
+          <ChartContainer /> */}
         </Content>
         <FooterContainer />
       </div>

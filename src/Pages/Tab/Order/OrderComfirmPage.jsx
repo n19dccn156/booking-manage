@@ -9,9 +9,9 @@ import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
 import ComfirmContainer from '../../../Containers/OrderContainer/ComfirmContainer';
 const { Sider, Content } = Layout;
 
-const OrderAwaitPage = () => {
+const OrderComfirmPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('2');
+  const [current, setCurrent] = useState('1');
   // const loggedIn = useSelector((state) => state.loggedIn);
   // console.log(loggedIn)
   // console.log(current)
@@ -60,4 +60,4 @@ const styleSheet = {
   }
 }
 
-export default OrderAwaitPage;
+export default OrderComfirmPage;
