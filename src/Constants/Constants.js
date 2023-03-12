@@ -1,13 +1,13 @@
 
 const Constants = {
-    host: 'http://14.225.255.238/booking',
+    host: 'http://localhost',
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
     LEFT: 'LEFT',
     RIGHT: 'RIGHT',
     SET_ROLE: 'SET',
     REMOVE_ROLE: 'REMOVE',
-    URL_AUTHOZ: '/authorized',
+    URL_AUTHOZ: '/api/v1/users/authorization',
 }
 
 export default Constants;

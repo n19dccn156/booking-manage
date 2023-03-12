@@ -17,7 +17,6 @@ const LoginPage = () => {
 	const dispatch = useDispatch();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	// const navigate = useNavigate();
 
 	const submit = () => {
 		axios({
@@ -30,6 +29,7 @@ const LoginPage = () => {
 				message.loading(<Alert message='Đăng nhập thất bại' type='error' description='Không có quyền truy cập' showIcon/>)
 			} else {	
 				localStorage.setItem('userId', res.data.data.userId)	
+				localStorage.setItem('roleId', res.data.data.roleId)	
 				localStorage.setItem('authorization', res.headers.authorization)	
 				message.loading(<Alert message='Đăng nhập thành công' type='success' showIcon/>)
 				dispatch(LoginAcction())
@@ -39,7 +39,7 @@ const LoginPage = () => {
 			if(err.response.data.message.length > 0) {
 				message.loading(<Alert message='Đăng nhập thất bại' type='error' description={err.response.data.message} showIcon/>)
 			} else {
-				console.log(err.response)
+				message.loading(<Alert message='Lỗi hệ thống' type='error' description={'Hệ thống đang bảo trì'} showIcon/>)
 			}
 		})
 	}

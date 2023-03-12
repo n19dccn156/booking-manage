@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 
 import { Layout, Menu } from 'antd';
-import Colors from "../../../Constants/Colors";
-import '../../../index.css';
-import ItemsTab from '../../../Constants/ItemsTab';
-import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
-import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
-import AwaitContainer from '../../../Containers/OrderContainer/AwaitContainer';
+import Colors from "../../Constants/Colors";
+import '../../index.css';
+import ItemsTabEmployee from '../../Constants/ItemsTabEmployee';
+import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
+import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
 const { Sider, Content } = Layout;
 
-const OrderAwaitPage = () => {
+const Employee = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('1');
-  // const loggedIn = useSelector((state) => state.loggedIn);
-  // console.log(loggedIn)
-  // console.log(current)
-  // console.log(collapsed.valueOf)
+  const [current, setCurrent] = useState('0');
 
   const clickTab = (e) => {
     setCurrent(e.key);
@@ -25,12 +20,13 @@ const OrderAwaitPage = () => {
     <Layout style={{ display: 'flex', flexDirection: 'row', backgroundColor: Colors.bgBelow }}>
       <Sider collapsible theme='dark' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="logo"></div>
-        <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
+        <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTabEmployee} />
       </Sider>
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-          <AwaitContainer />
+          {/* <StatusContainer />
+          <ChartContainer /> */}
         </Content>
         <FooterContainer />
       </div>
@@ -60,4 +56,4 @@ const styleSheet = {
   }
 }
 
-export default OrderAwaitPage;
+export default Employee;

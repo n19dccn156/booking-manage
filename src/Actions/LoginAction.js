@@ -6,7 +6,7 @@ export const LoginAcction = () => {
   };
 };
 
-export const LogoutnAcction = () => {
+export const LogoutAcction = () => {
   return {
     type: Constants.LOGOUT,
   };
