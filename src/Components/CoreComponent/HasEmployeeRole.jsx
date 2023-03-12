@@ -3,37 +3,36 @@
 import axios from "axios";
 import { message } from "antd";
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Constants from "../../Constants/Constants";
 
 const HasEmployeeRole = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const access_token = localStorage.getItem('authorization');
+  const roleId = localStorage.getItem('roleId');
   
-  useEffect(() => {
-    const token = localStorage.getItem('authorization');
-    const roleId = localStorage.getItem('roleId');
-    function authoz (access_token) {
-      if(access_token !== null && access_token.startsWith("Bearer") && roleId === 'EMPLOYEE') {
-        axios({
-          method: "POST",
-          url: Constants.host+Constants.URL_AUTHOZ,
-          headers: {Authorization: access_token}
-        })
-        .then((res) => {
-          if(res.data.data !== 'EMPLOYEE') {
-            navigate('/admin', {replace: true})
-          }
-        })
-        .catch((err) => {
-          message.error(err.data.data.message)
-          navigate('/login', {replace: true})
-        })
-      } else {
-        navigate('/admin', {replace: true})
+  if(access_token !== null && access_token.startsWith("Bearer") && roleId === 'ADMIN') {
+    axios({
+      method: "POST",
+      url: Constants.host+Constants.URL_AUTHOZ,
+      headers: {Authorization: access_token}
+    })
+    .then((res) => {
+      if(res.data.data !== 'EMPLOYEE') {
+        return <Navigate to='/login'/>
       }
-    }
-    authoz(token)
-  })
+      // if(res.data.data !== 'ADMIN') {
+      //   navigate('/login')
+      // }
+    })
+    .catch((err) => {
+      message.error(err.data.data.message)
+      return <Navigate to='/login'/>
+    })
+  } else {
+    return <Navigate to='/login'/>
+    // navigate('/login', {replace: true})
+  }
 
   return <Outlet/>;
 }

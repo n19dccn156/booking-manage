@@ -2,7 +2,7 @@
 // import axios from "axios";
 import axios from "axios";
 import { message } from "antd";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Constants from "../../Constants/Constants";
 import { useEffect } from "react";
 
@@ -10,10 +10,10 @@ const HasAdminRole = () => {
   // const [allowAccess, setAllowAccess] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('authorization');
+  // useEffect(() => {
+    const access_token = localStorage.getItem('authorization');
     const roleId = localStorage.getItem('roleId');
-    function authoz (access_token) {
+    // function authoz (access_token) {
       if(access_token !== null && access_token.startsWith("Bearer") && roleId === 'ADMIN') {
         axios({
           method: "POST",
@@ -22,19 +22,23 @@ const HasAdminRole = () => {
         })
         .then((res) => {
           if(res.data.data !== 'ADMIN') {
-            navigate('/login', {replace: true})
+            return <Navigate to='/login'/>
           }
+          // if(res.data.data !== 'ADMIN') {
+          //   navigate('/login')
+          // }
         })
         .catch((err) => {
           message.error(err.data.data.message)
-          navigate('/login', {replace: true})
+          return <Navigate to='/login'/>
         })
       } else {
-        navigate('/login', {replace: true})
+        return <Navigate to='/login'/>
+        // navigate('/login', {replace: true})
       }
-    }
-    authoz(token)
-  })
+    // }
+    // authoz(token)
+  // })
 
   return <Outlet />
 }
