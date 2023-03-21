@@ -1,12 +1,24 @@
 import Constants from "../Constants/Constants"
 
-export const LoginAcction = () => {
+export const HotelAction = () => {
   return {
-    type: Constants.LOGIN,
+    type: Constants.HOTEL,
   };
 };
 
-export const LogoutAcction = () => {
+export const EmployeeAction = () => {
+  return {
+    type: Constants.EMPLOYEE,
+  };
+};
+
+export const AdminAction = () => {
+  return {
+    type: Constants.ADMIN,
+  };
+};
+
+export const LogoutAction = () => {
   return {
     type: Constants.LOGOUT,
   };

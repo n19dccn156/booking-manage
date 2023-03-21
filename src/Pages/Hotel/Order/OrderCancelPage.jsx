@@ -6,10 +6,10 @@ import '../../../index.css';
 import ItemsTab from '../../../Constants/ItemsTab';
 import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
 import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
-import CompleteContainer from '../../../Containers/OrderContainer/CompleteContainer';
+import CancelContainer from '../../../Containers/OrderContainer/CancelContainer';
 const { Sider, Content } = Layout;
 
-const OrderCompletePage = () => {
+const OrderCancelPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [current, setCurrent] = useState('1');
   // const loggedIn = useSelector((state) => state.loggedIn);
@@ -30,7 +30,7 @@ const OrderCompletePage = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-          <CompleteContainer />
+        <CancelContainer/>
         </Content>
         <FooterContainer />
       </div>
@@ -45,7 +45,7 @@ const styleSheet = {
     fontSize: 24,
   },
   content: {
-    margin: '16px 0 0 16px',
+    margin: '8px 0 0 8px',
     // minHeight: 550,
     borderRadius: 8,
     backgroundColor: "transparent",
@@ -60,4 +60,4 @@ const styleSheet = {
   }
 }
 
-export default OrderCompletePage;
+export default OrderCancelPage;

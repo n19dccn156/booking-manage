@@ -1,11 +1,15 @@
 import Constants from "../Constants/Constants";
 
-const LoggedInReducer = (state=false, action) => {
+const LoggedInReducer = (state = '', action) => {
   switch (action.type) {
-    case Constants.LOGIN:
-      return true;
+    case Constants.HOTEL:
+      return Constants.HOTEL;
+    case Constants.EMPLOYEE:
+      return Constants.EMPLOYEE;
+    case Constants.ADMIN:
+      return Constants.ADMIN;
     case Constants.LOGOUT:
-      return false;
+      return '';
     default:
       return state;
   }

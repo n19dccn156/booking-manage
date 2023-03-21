@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import LoginPage from './Pages/LoginPage';
 import Reducers from './Reducers/Reducers';
 import Router from './Routes/Router';
 const root = ReactDOM.createRoot(document.getElementById('root'));

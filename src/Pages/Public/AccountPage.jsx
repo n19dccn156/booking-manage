@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 
 import { Layout, Menu } from 'antd';
-import Colors from "../../../Constants/Colors";
-import '../../../index.css';
-import ItemsTab from '../../../Constants/ItemsTab';
-import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
-import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
-import OngoingContainer from '../../../Containers/OrderContainer/OngoingContainer';
+import Colors from "../../Constants/Colors";
+import '../../index.css';
+import ItemsTab from '../../Constants/ItemsTab';
+import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
+import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
 const { Sider, Content } = Layout;
 
-const OrderOngoingPage = () => {
+const AccountPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('1');
-  // const loggedIn = useSelector((state) => state.loggedIn);
-  // console.log(loggedIn)
-  // console.log(current)
-  // console.log(collapsed.valueOf)
+  const [current, setCurrent] = useState('6');
 
   const clickTab = (e) => {
     setCurrent(e.key);
@@ -30,7 +25,8 @@ const OrderOngoingPage = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
-        <OngoingContainer/>
+          {/* <StatusContainer />
+          <ChartContainer /> */}
         </Content>
         <FooterContainer />
       </div>
@@ -60,4 +56,4 @@ const styleSheet = {
   }
 }
 
-export default OrderOngoingPage;
+export default AccountPage;

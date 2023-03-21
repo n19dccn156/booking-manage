@@ -2,17 +2,14 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Tabs } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 
-import TableComponent from '../../Components/OrderComponent/TableComponent';
 import Colors from '../../Constants/Colors';
 import '../../index.css';
 import { Link } from 'react-router-dom';
+import TableCom from '../../Components/OrderComponent/Table';
+import Constants from '../../Constants/Constants';
 const { Content } = Layout;
-
-const onChange = (key) => {
-  console.log(key);
-};
 
 const items2 = [
   {
@@ -32,7 +29,7 @@ const items2 = [
   },
   {
     key: '3',
-    label: (<Link to={'/order/complete'}>Đã hoàn thành</Link>),
+    label: (<Link className='active'>Đã hoàn thành</Link>),
     // children: `Content of Tab Pane 3`,
   },
   {
@@ -42,30 +39,29 @@ const items2 = [
   },
 ];
 
-
-const element = (
-  <div>
-    <Button style={{ marginRight: 8 }} type="primary">Thêm đơn mới</Button>
-    <Button
-      type="primary"
-      icon={<ReloadOutlined />}
-      style={{ marginRight: 32 }}
-    //   onClick={}
-    />
-  </div>
-);
-
 const CompleteContainer = () => {
-
+  const [reload, setReload] = useState(false)
   return (
     <Content style={styleSheet.content}>
-      <Tabs defaultActiveKey="3" type='line' tabBarExtraContent={element} items={items2} size='large' style={{ marginLeft: 32 }} onChange={onChange} />
+      <Tabs
+        defaultActiveKey="3" type='line'
+        tabBarExtraContent={
+          <div>
+            <Button
+              type="primary"
+              icon={<ReloadOutlined />}
+              style={{ marginRight: 32 }}
+              onClick={() => { setReload(!reload) }}>
+              Tải lại trang
+            </Button>
+          </div>
+        }
+        items={items2} size='large' style={{ marginLeft: 32 }} />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <TableComponent />
+        <TableCom status={Constants.STATUS.COMPLETE} reload={reload}/>
       </div>
     </Content>
   );
-
 };
 
 const styleSheet = {

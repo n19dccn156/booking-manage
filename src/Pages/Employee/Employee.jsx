@@ -27,6 +27,7 @@ const Employee = () => {
         <Content style={styleSheet.content}>
           {/* <StatusContainer />
           <ChartContainer /> */}
+          EMPLOYEE
         </Content>
         <FooterContainer />
       </div>

@@ -5,7 +5,7 @@ const NotFoundPage = () => {
 	const navigate = useNavigate();
 
 	const onclick = () => {
-		navigate('/');
+		navigate(-1);
 	}
 
 	return (
@@ -13,7 +13,7 @@ const NotFoundPage = () => {
 			status="404"
 			title="404"
 			subTitle="Xin lỗi, Trang bạn tìm không tồn tại"
-			extra={<Button type="primary" onClick={onclick}>Trang chủ</Button>}
+			extra={<Button type="primary" onClick={onclick}>Quay Lại</Button>}
 		/>
 	);
 }

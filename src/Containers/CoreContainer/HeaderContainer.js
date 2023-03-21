@@ -20,12 +20,12 @@ const HeaderContainer = () => {
 			</div>
 			<div style={styleSheet.bell}>
 				<Space style={{paddingRight: 16}}>
+					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
+				</Space>
+				<Space>
 					<Badge count={1}>
 						<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<BellOutlined />} />
 					</Badge>
-				</Space>
-				<Space>
-					<Avatar style={{backgroundColor: '#3c89e8'}} shape='square' icon={<SettingOutlined />} />
 				</Space>
 			</div>
 			<div style={styleSheet.avatar}>

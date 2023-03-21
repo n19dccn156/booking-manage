@@ -4,6 +4,7 @@ import {
   LineChartOutlined,
   ProfileOutlined,
 	LogoutOutlined,
+	UserOutlined,
 } from '@ant-design/icons';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -32,6 +33,11 @@ const ItemsTab = [
 		label: (<Link to={'/statistic'}  className='nav-link'>Thống kê</Link>),
 		key: '4',
 		icon: <LineChartOutlined />,
+	},
+	{
+		label: (<Link to={'/account'}  className='nav-link'>Tài khoản</Link>),
+		key: '6',
+		icon: <UserOutlined />,
 	},
 	{
 		label: (<Link to={'/logout'}  className='nav-link'>Đăng xuất</Link>),

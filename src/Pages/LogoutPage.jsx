@@ -1,7 +1,7 @@
 
 import '../index.css';
 import { useDispatch } from 'react-redux';
-import { LogoutAcction } from "../Actions/LoginAction";
+import { LogoutAction } from "../Actions/LoginAction";
 import { Navigate } from 'react-router-dom';
 // import { Navigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const LogoutPage = () => {
   localStorage.removeItem('userId')
   localStorage.removeItem('authorization')
   localStorage.removeItem('roleId')
-  dispatch(LogoutAcction())
+  dispatch(LogoutAction())
 	
 	return <Navigate to='/login'/>
 }

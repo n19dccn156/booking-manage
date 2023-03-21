@@ -25,6 +25,7 @@ const Admin = () => {
       <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
+          ADMIN
           {/* <StatusContainer />
           <ChartContainer /> */}
         </Content>
