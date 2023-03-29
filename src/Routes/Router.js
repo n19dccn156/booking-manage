@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from '../Pages/LoginPage';
 import StatisticPage from '../Pages/Hotel/StatisticPage';
-import RoomPage from '../Pages/Hotel/RoomPage';
+// import RoomPage from '../Pages/Hotel/RoomPage';
 import HotelPage from '../Pages/Hotel/HotelPage';
 import DashBoardPage from '../Pages/Hotel/DashboardPage';
 import OrderAwaitPage from '../Pages/Hotel/Order/OrderAwaitPage';
@@ -21,16 +21,14 @@ import LogoutPage from '../Pages/LogoutPage';
 import AccountPage from '../Pages/Public/AccountPage';
 
 
-const Router = () => {
+const Router = React.memo(() => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
-        {/* Hotel role */}
           <Route path='/' element={<HasHotelRole />}>
-            <Route path='/' element={<DashBoardPage />} index />
+            <Route path='/' element={<DashBoardPage />} />
             <Route path='/hotel' element={<HotelPage />} />
-            <Route path='/room' element={<RoomPage />} />
             <Route path='/statistic' element={<StatisticPage />} />
             <Route path='/order/await' element={<OrderAwaitPage />} />
             <Route path='/order/comfirm' element={<OrderComfirmPage />} />
@@ -40,11 +38,11 @@ const Router = () => {
           </Route>
           {/* employee role */}
           <Route path='/employee' element={<HasEmployeeRole />}>
-            <Route path='/employee' element={<Employee />} index />
+            <Route path='/employee' element={<Employee />} />
           </Route>
           {/* Admin role */}
           <Route path='/admin' element={<HasAdminRole />}>
-            <Route path='/admin' element={<Admin />} index />
+            <Route path='/admin' element={<Admin />} />
           </Route>
         <Route path='/account' element={<AccountPage />} />
         <Route path='/logout' element={<LogoutPage />} />
@@ -52,6 +50,6 @@ const Router = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+});
 
 export default Router;

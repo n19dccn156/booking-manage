@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import axios from "axios";
 import { message } from "antd";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Constants from "../../Constants/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminAction, EmployeeAction, HotelAction } from "../../Actions/LoginAction";
@@ -9,9 +9,8 @@ import { AdminAction, EmployeeAction, HotelAction } from "../../Actions/LoginAct
 const HasHotelRole = () => {
   const loggedIn = useSelector((state) => state.loggedIn);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   const access_token = localStorage.getItem('authorization')
-
+  console.log('render')
   if(loggedIn === Constants.ADMIN) {
     // navigate('/admin')
     return <Navigate to='/admin'/>
@@ -37,18 +36,15 @@ const HasHotelRole = () => {
         console.log('HOTEL')
         dispatch(HotelAction())
       } else {
-        navigate('/login')
-        return;      
+        return(<Navigate to='/login'/>)  
       }
     })
     .catch((err) => {
       message.error(err.response.data.message)
-      navigate('/login')
-      return;
+      return(<Navigate to='/login'/>)
     })
   } else {
-    navigate('/login')
-    return;
+    return(<Navigate to='/login'/>)
   }
   
 }

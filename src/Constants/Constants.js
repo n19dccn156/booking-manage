@@ -12,6 +12,8 @@ const Constants = {
     REMOVE_ROLE: 'REMOVE',
     URL_AUTHOZ: '/api/v1/users/authorization',
     URL_ORDER_BY_HOTEL: '/api/v1/orders',
+    OPEN_MODAL: 'TRUE',
+    CLOSE_MODAL: 'FALSE',
     STATUS: {
         AWAIT: 'CHOXACNHAN',
         COMFIRM: 'DATTHANHCONG',

@@ -9,7 +9,6 @@ import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
 const { Sider, Content } = Layout;
 
 const AccountPage = () => {
-  const [collapsed, setCollapsed] = useState(false);
   const [current, setCurrent] = useState('6');
 
   const clickTab = (e) => {
@@ -18,11 +17,11 @@ const AccountPage = () => {
 
   return (
     <Layout style={{ display: 'flex', flexDirection: 'row', backgroundColor: Colors.bgBelow }}>
-      <Sider collapsible theme='dark' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider theme='dark' width={180} style={{overflow: 'auto', position: 'fixed', height: '100vh'}}>
         <div className="logo"></div>
         <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
       </Sider>
-      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
+      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left', marginLeft: 180 }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
           {/* <StatusContainer />

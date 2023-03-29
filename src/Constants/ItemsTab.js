@@ -24,11 +24,11 @@ const ItemsTab = [
 		key: '2',
 		icon: <HomeOutlined />,
 	},
-	{
-		label: (<Link to={'/room'}  className='nav-link'>QL phòng</Link>),
-		key: '3',
-		icon: <HomeOutlined />,
-	},
+	// {
+	// 	label: (<Link to={'/room'}  className='nav-link'>QL phòng</Link>),
+	// 	key: '3',
+	// 	icon: <HomeOutlined />,
+	// },
 	{
 		label: (<Link to={'/statistic'}  className='nav-link'>Thống kê</Link>),
 		key: '4',

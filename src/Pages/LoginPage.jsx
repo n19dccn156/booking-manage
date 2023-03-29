@@ -17,8 +17,9 @@ const LoginPage = () => {
 	const dispatch = useDispatch();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	console.log(loggedIn)
+	const [clickLogin, setClickLogin] = useState(false);
 	const submit = () => {
+		setClickLogin(true);
 		axios({
 			method: 'POST',
 			url: Constants.host + '/api/v1/login-page/signin',
@@ -26,6 +27,7 @@ const LoginPage = () => {
 		})
 			.then((res) => {
 				if (res.data.data.roleId === 'CUSTOMER') {
+					setClickLogin(false);
 					message.loading(<Alert message='Đăng nhập thất bại' type='error' description='Không có quyền truy cập' showIcon />)
 				} else {
 					localStorage.setItem('userId', res.data.data.userId)
@@ -46,6 +48,7 @@ const LoginPage = () => {
 				}
 			})
 			.catch((err) => {
+				setClickLogin(false);
 				if (err.response.data.message.length > 0) {
 					message.loading(<Alert message='Đăng nhập thất bại' type='error' description={err.response.data.message} showIcon />)
 				} else {
@@ -55,13 +58,10 @@ const LoginPage = () => {
 	}
 
 	if (loggedIn === Constants.HOTEL) {
-		console.log('h')
 		return <Navigate to='/' />
 	} else if (loggedIn === Constants.EMPLOYEE) {
-		console.log('e')
 		return <Navigate to='/employee' />
 	} else if (loggedIn === Constants.ADMIN) {
-		console.log('a')
 		return <Navigate to='/admin' />
 	} else {
 		return (
@@ -85,7 +85,7 @@ const LoginPage = () => {
 
 						<Form.Item wrapperCol={{ offset: 8, span: 16, }}>
 							<div style={{ display: 'flex', justifyContent: 'center' }}>
-								<Button type="primary" htmlType="submit" size='large' style={{ width: 200 }}> Đăng nhập</Button>
+								<Button type="primary" htmlType="submit" size='large' loading={clickLogin} style={{ width: 200 }}> Đăng nhập</Button>
 							</div>
 						</Form.Item>
 					</Form>

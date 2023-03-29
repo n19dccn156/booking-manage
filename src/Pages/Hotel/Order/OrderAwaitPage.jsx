@@ -10,7 +10,6 @@ import AwaitContainer from '../../../Containers/OrderContainer/AwaitContainer';
 const { Sider, Content } = Layout;
 
 const OrderAwaitPage = () => {
-  const [collapsed, setCollapsed] = useState(false);
   const [current, setCurrent] = useState('1');
   const clickTab = (e) => {
     setCurrent(e.key);
@@ -18,17 +17,18 @@ const OrderAwaitPage = () => {
 
   return (
     <Layout style={{ display: 'flex', flexDirection: 'row', backgroundColor: Colors.bgBelow }}>
-      <Sider collapsible theme='dark' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider theme='dark' width={180} style={{overflow: 'auto', position: 'fixed', height: '100vh'}}>
         <div className="logo"></div>
         <Menu theme="dark" onClick={clickTab} selectedKeys={[current]} mode='inline' items={ItemsTab} />
       </Sider>
-      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left' }}>
+      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left', marginLeft: 180 }}>
         <HeaderContainer />
         <Content style={styleSheet.content}>
           <AwaitContainer />
         </Content>
         <FooterContainer />
       </div>
+
     </Layout>
   );
 }
@@ -40,7 +40,7 @@ const styleSheet = {
     fontSize: 24,
   },
   content: {
-    margin: '8px 0 0 8px',
+    margin: '8px 0 0 16px',
     // minHeight: 550,
     borderRadius: 8,
     backgroundColor: "transparent",

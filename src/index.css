@@ -30,4 +30,11 @@ code {
   background: rgba(255, 255, 255, 0.3);
 }
 
+.table-row-light {
+  background-color: #e6f7ff;
+}
+.table-row-dark :hover {
+ background-color: #c43e3e;
+}
+
 
