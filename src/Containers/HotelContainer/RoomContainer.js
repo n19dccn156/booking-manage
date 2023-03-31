@@ -11,7 +11,7 @@ const RoomContainer = () => {
           Danh sách phòng
           <Button style={{ marginLeft: 24 }} type='primary' icon={<PlusOutlined />}>Thêm</Button>
         </div>
-        <div style={{ border: '2px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
+        <div style={{ border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
       </div>
       <Row>
         <Col span={12}><RoomComponent /></Col>

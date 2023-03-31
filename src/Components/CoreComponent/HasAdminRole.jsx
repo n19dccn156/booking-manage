@@ -2,7 +2,7 @@
 // import axios from "axios";
 import axios from "axios";
 import { message } from "antd";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Constants from "../../Constants/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminAction, EmployeeAction, HotelAction } from "../../Actions/LoginAction";
@@ -41,15 +41,17 @@ const HasAdminRole = () => {
         dispatch(HotelAction())
       } else {
         navigate('/login')
-        // dispatch(AdminAction)
+        return;
       }
     })
     .catch((err) => {
       message.error(err.data.data.message)
-      return <Navigate to='/login'/>
+      navigate('/login')
+        return;
     })
   } else {
-    return <Navigate to='/login'/>
+    navigate('/login')
+    return;
   }
   
 }

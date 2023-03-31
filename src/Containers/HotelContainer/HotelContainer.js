@@ -60,7 +60,7 @@ const HotelContainer = () => {
               Danh sách tiện ích
               <Button style={{marginLeft: 24}} type='primary' icon={<PlusOutlined/>}>Thêm</Button>
             </div>
-            <div style={{border: '2px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
+            <div style={{border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
           </div>
           <div style={{ display: 'flex', flex: 4, flexDirection: 'column', marginTop: 16 }}>
             <Space style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
@@ -94,11 +94,11 @@ const HotelContainer = () => {
         </div>
         <div style={{ display: 'flex', flex: 3, padding: '16px 16px', flexDirection: 'column' }}>
           <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-            <div style={{ fontWeight: 'bold', fontSize: 16}}>
+            <div style={{ fontWeight: 'bold', fontSize: 16, color: '#001d66'}}>
               Nội dung mô tả
               <Button style={{marginLeft: 24}} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
             </div>
-            <div style={{ border: '2px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
+            <div style={{ border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
           </div>
           <Input.TextArea style={{display: 'flex', flex: 4, paddingBottom: 16 }} defaultValue='Desciption' />
         </div>
