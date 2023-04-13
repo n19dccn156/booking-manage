@@ -8,7 +8,7 @@ import {
   CloseOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Tabs, Modal, Form, Input, DatePicker, Space, Select, InputNumber, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // import TableComponent from '../../Components/OrderComponent/TableComponent';
 import Colors from '../../Constants/Colors';
@@ -16,6 +16,8 @@ import '../../index.css'
 import { Link } from 'react-router-dom';
 import TableCom from '../../Components/OrderComponent/Table';
 import Constants from '../../Constants/Constants';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 const { Content } = Layout;
 const { RangePicker } = DatePicker
 
@@ -46,10 +48,14 @@ const items2 = [
     // children: `Content of Tab Pane 3`,
   },
 ];
+let listRoomId = new Map();
+let listRoomNumber = new Map();
+let listRoom = [];
 
-const ComfirmContainer = () => {
+const ConfirmContainer = React.memo(() => {
+  const update = useSelector((state) => state.reloadConfirm)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isComfirm, setIsComfirm] = useState(false);
+  const [isConfirm, setIsConfirm] = useState(false);
   const [isCancel, setIsCancel] = useState(false);
   const [reload, setReload] = useState(false);
   const [form] = Form.useForm();
@@ -58,8 +64,53 @@ const ComfirmContainer = () => {
   const [checkOut, setCheckout] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  // const [listOrderDetail, setListOrderDetail] = useState('')
 
   const [allowAdd, setAllowAdd] = useState(false);
+
+  useEffect(() => {
+    if(allowAdd === true) {
+      const currentDate = new Date();
+      const dmy = checkIn.split('-');
+      const checkinDate = new Date(dmy[1]+"-"+dmy[0]+"-"+dmy[2]);
+      const dmy2 = checkOut.split('-');
+      if(checkinDate.getTime() - currentDate.getTime() < -1000*60*60*7) {
+        message.warning("Ngày nhận không hợp lệ");
+        setAllowAdd(false);
+        return;
+      }
+      if(checkIn === checkOut) {
+        message.warning("Bạn phải ở tối thiểu 1 ngày");
+        setAllowAdd(false);
+        return;
+      }
+      axios({
+        method: 'GET',
+        url: Constants.host + "/api/v1/hotels/authorization",
+        headers: {
+          'Authorization': localStorage.getItem('authorization'),
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((res) => {
+        const id = res.data.data.id;
+        axios({
+          method: 'GET',
+          url: Constants.host+ `/api/v1/room-type/hotel/${id}`,
+          params: {
+            'checkin': dmy[2]+'-'+dmy[1]+'-'+dmy[0],
+            'checkout': dmy2[2]+'-'+dmy2[1]+'-'+dmy2[0]
+          }
+        })
+        .then((res) => {
+          listRoom = res.data.data;
+        })
+        .catch((err) => console.log(err))
+      })
+      .catch((err) => console.log(err))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowAdd])
 
   const setDate = (value) => {
     if(value === null) {
@@ -77,40 +128,101 @@ const ComfirmContainer = () => {
   }
   const onClickClear = () => {
     form.resetFields();
+    setAllowAdd(false);
   }
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
-    setIsComfirm(true)
+    setIsConfirm(true)
   };
   const handleCancel = () => {
     setIsCancel(true)
   };
-  const handleOkComfirm = () => {
+  const handleOkConfirm = () => {
     if (checkIn !== '' && checkOut !== '') {
-      console.log(checkIn);
-      console.log(checkOut);
-      console.log(name);
-      console.log(phone);
+      addRoom();
       setIsModalOpen(false)
-      setIsComfirm(false)
+      setIsConfirm(false)
       form.resetFields()
+      setAllowAdd(false);
+      message.success('Thêm đơn mới thành công')
+      setReload(!reload)
     } else {
       message.error('Đơn không hợp lệ')
     }
   };
-  const handleCancelComfirm = () => {
-    setIsComfirm(false);
+  const handleCancelConfirm = () => {
+    setIsConfirm(false);
   };
   const handleOkCancel = () => {
-    setIsCancel(false)
-    setIsModalOpen(false)
+    listRoomId.clear();
+    listRoomNumber.clear();
+    form.resetFields();
+    setAllowAdd(false);
+    setIsCancel(false);
+    setIsModalOpen(false);
   };
   const handleCancelCancel = () => {
     setIsCancel(false)
   };
 
+  useEffect(() => {
+    setReload(!reload)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update])
+
+  const changeRoomType = (key, value) => {
+    listRoomId.set(key, value)
+  }
+  const changeNumber = (key, value) => {
+    listRoomNumber.set(key, value)
+  }
+  const deleteRoom = (key) => {
+    listRoomId.delete(key);
+    listRoomNumber.delete(key)
+  }
+  const addRoom = () => {
+    axios({
+      method: 'GET',
+      url: Constants.host+'/api/v1/hotels/authorization',
+      headers: {
+        'Authorization': localStorage.getItem('authorization'),
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      const dmy = checkIn.split('-');
+      const dmy2 = checkOut.split('-');
+      const listOrder = [];
+      listRoomId.forEach((value, key) => {
+        if(listRoomNumber.get(key) !== undefined) {
+          listOrder.push({roomId: value, quantity: listRoomNumber.get(key)})
+        }
+      })
+      axios({
+        method: 'POST',
+        url: Constants.host+'/api/v1/order',
+        data: {
+          'checkin': dmy[2]+'-'+dmy[1]+'-'+dmy[0],
+          'checkout': dmy2[2]+'-'+dmy2[1]+'-'+dmy2[0],
+          'name': name,
+          'phone': phone,
+          'userId': res.data.data.userId,
+          'hotelId': res.data.data.id,
+          'orderDetails': listOrder
+        }
+      })
+    })
+    .catch(err => console.log(err))
+    // const listOrder = [];
+    // listRoomId.forEach((value, key) => {
+    //   if(listRoomNumber.get(key) !== undefined) {
+    //     listOrder.push({roomId: value, number: listRoomNumber.get(key)})
+    //   }
+    // })
+  }
+  
   return (
     <Content style={styleSheet.content}>
       <Tabs
@@ -166,7 +278,7 @@ const ComfirmContainer = () => {
               <Input 
                 placeholder='Họ và tên' 
                 prefix={<UserOutlined style={{ color: Colors.bgBetween }} />} 
-                style={{ width: 300 }} 
+                style={{ width: 240 }} 
                 onChange={(value) => {setName(value.target.value)}}
               />
             </Form.Item>
@@ -174,7 +286,7 @@ const ComfirmContainer = () => {
               <Input 
                 placeholder='Số điện thoại' 
                 prefix={<PhoneOutlined style={{ color: Colors.bgBetween }} />} 
-                style={{ width: 120 }} 
+                style={{ width: 180 }} 
                 onChange={(value) => {setPhone(value.target.value)}}
               />
             </Form.Item>
@@ -204,15 +316,21 @@ const ComfirmContainer = () => {
                         },
                       ]}
                     >
-                      <Select placeholder="Chọn loại phòng" style={{ width: 300, maxWidth: 300 }}>
-                        <Select.Option value="1 giuong">Phòng 1 giường</Select.Option>
-                        <Select.Option value="2 giuong">Phòng 2 giường</Select.Option>
+                      <Select placeholder="Chọn loại phòng" onChange={(data) => changeRoomType(key, data)} style={{ width: 300, maxWidth: 300 }}>
+                        {listRoom.map((data) => (
+                          <Select.Option key={data.id} value={data.id}>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                              <div style={{display: 'flex', flex: 10}}>{data.name}</div>
+                              <div style={{display: 'flex', flex: 1}}>còn: {data.quantity}</div>
+                            </div>
+                          </Select.Option>
+                        ))}
                       </Select>
                     </Form.Item>
                     <Form.Item>
-                      <InputNumber min={1} max={10} placeholder='Số phòng' />
+                      <InputNumber min={1} placeholder='Số phòng' onChange={(data) => changeNumber(key, data)}/>
                     </Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(name)} />
+                    <MinusCircleOutlined onClick={() => {remove(key); deleteRoom(key)}} />
                   </Space>
                 ))}
                 <Form.Item>
@@ -227,11 +345,11 @@ const ComfirmContainer = () => {
       </Modal>
 
       <Modal
-        title="Bạn có đồng ý thêm đơn mới ?" open={isComfirm}
-        onCancel={handleCancelComfirm}
+        title="Bạn có đồng ý thêm đơn mới ?" open={isConfirm}
+        onCancel={handleCancelConfirm}
         footer={[
-          <Button key='back' danger onClick={handleCancelComfirm}>Hủy</Button>,
-          <Button key='submit' type="primary" onClick={handleOkComfirm}>Đồng ý</Button>
+          <Button key='back' danger onClick={handleCancelConfirm}>Hủy</Button>,
+          <Button key='submit' type="primary" onClick={handleOkConfirm}>Đồng ý</Button>
         ]}
       />
 
@@ -245,7 +363,7 @@ const ComfirmContainer = () => {
       />
     </Content>
   );
-};
+});
 
 const styleSheet = {
   content: {
@@ -257,4 +375,4 @@ const styleSheet = {
 };
 
 
-export default ComfirmContainer;
+export default ConfirmContainer;

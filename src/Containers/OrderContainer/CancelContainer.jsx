@@ -19,7 +19,7 @@ const items2 = [
   },
   {
     key: '1',
-    label: (<Link style={{color: 'black'}} to={'/order/comfirm'}>Đặt thành công</Link>),
+    label: (<Link style={{color: 'black'}} to={'/order/confirm'}>Đặt thành công</Link>),
     //   children: `Content of Tab Pane 2`,
   },
   {

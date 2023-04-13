@@ -7,7 +7,7 @@ const ItemsOrder = [
   },
   {
     key: '1',
-    label: (<Link style={{color: 'black'}} to={'/order/comfirm'}>Đặt thành công</Link>),
+    label: (<Link style={{color: 'black'}} to={'/order/confirm'}>Đặt thành công</Link>),
   },
   {
     key: '2',

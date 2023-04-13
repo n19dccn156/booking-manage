@@ -1,45 +1,102 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	InfoCircleOutlined
 } from '@ant-design/icons';
-import { Button, Input, Modal } from "antd";
+import { Button, Input, Modal, message } from "antd";
 import { useState } from "react";
+import Constants from '../../Constants/Constants';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReloadConfirmTable } from '../../Actions/ReloadTableAction';
 
 const formatMoney = (amount) => {
 	return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const rooms = [
-	{ _id: '1234567', name: 'Phòng giường đôi VIP', numDays: '4', quantity: '3', price: '500000' },
-	{ _id: '8598234', name: 'Phòng giường đơn VIP', numDays: '4', quantity: '1', price: '300000' },
-	{ _id: '2758723', name: 'Phòng tập thể', numDays: '4', quantity: '1', price: '800000' },
-];
-
-const DetailComfirmComponent = (props) => {
+const DetailComfirmComponent = React.memo((props) => {
+	const update = useSelector((state) => state.reloadConfirm);
+	const dispatch = useDispatch();
+	const [order, setOrder] = useState("");
+	const [orderDetail, setOrderDetail] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
-	const handleOk = () => {
-		setIsOpen(false);
-	}
-	const handleCancel = () => {
-		setIsOpen(false);
-	}
+	const [isCancel, setIsCancel] = useState(false);
+	const [isConfirm, setIsConfirm] = useState(false);
 	let total = 0;
+	const url = Constants.host + `/api/v1/order/${props.id}/status/`;
+	const token = localStorage.getItem('authorization')
+
+	const handleExit = () => {setIsOpen(false)}
+	const handleOk = () => {setIsConfirm(true)}
+	const handleCancel = () => {setIsCancel(true)}
+	const notCancel = () => {setIsCancel(false)}
+	const notConfirm = () => {setIsConfirm(false)}
+
+	const confirmCancel = () => {
+		axios({
+			url: url+Constants.STATUS.CANCEL,
+			method: 'PUT',
+			headers: {'Authorization': token, 'Content-Type': 'application/json'}
+		})
+		.then(() => {
+			message.success("Huỷ đơn thành công !!");
+			setIsCancel(false);
+			setIsOpen(false);
+			dispatch(ReloadConfirmTable(!update));
+		})
+		.catch(() => {
+			message.error("Huỷ đơn thất bại !!");
+			setIsCancel(false);
+		})
+	}
+	const confirm = () => {
+		axios({
+			url: url+Constants.STATUS.ONGOING,
+			method: 'PUT',
+			headers: {'Authorization': token, 'Content-Type': 'application/json'}
+		})
+		.then(() => {
+			message.success("Nhận phòng thành công !!");
+			setIsConfirm(false);
+			setIsOpen(false);
+			dispatch(ReloadConfirmTable(!update));
+		})
+		.catch(() => {
+			message.error("Nhận phòng thất bại !!");
+			setIsConfirm(false)
+		})
+	}
+
+	useEffect(() => {
+		const urlOrder = Constants.host+`/api/v1/order/${props.id}`;
+		const urlOrderDetail = Constants.host+`/api/v1/order-detail/${props.id}`;
+
+		axios.get(urlOrder, {method: 'GET'})
+		.then((res) => {setOrder(res.data.data)})
+		.catch((err) => {console.log(err)})
+
+		axios.get(urlOrderDetail, {method: 'GET'})
+		.then((res) => {setOrderDetail(res.data.data)})
+		.catch((err) => {console.log(err)})
+		
+	}, [props])
+
 	return (
 		<>
 			<div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-				<Button type='primary' icon={<InfoCircleOutlined />} onClick={() => { setIsOpen(true); console.log(props.id) }}>Chi tiết</Button>
+				<Button type='primary' icon={<InfoCircleOutlined />} onClick={() => { setIsOpen(true);}}>Chi tiết</Button>
 			</div>
+			{order !== ""  && orderDetail !== "" ? (
 			<Modal
 				title={
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
 						<div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
-							<p style={{ color: '#006d75' }}>Khách sạn Phương Nam</p>
+							{/* <p style={{ color: '#006d75' }}>Khách sạn Phương Nam</p> */}
 							<div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
 								<div style={{ position: 'absolute', zIndex: 2, backgroundColor: 'white', marginLeft: 24, textDecoration: 'none', color: 'red', fontWeight: 'bold' }}>
 									Trạng thái
 								</div>
 								<div style={styles.inputContainer}>
-									<Input value='Đặt thành công' style={{ height: 48, color: '#8c8c8c', fontSize: 16, textAlign: 'right', border: '2px dotted rgb(9, 88, 217)', fontWeight: 'bold' }} readOnly={true} />
+									<Input value={order.status.name} style={{ height: 48, color: '#8c8c8c', fontSize: 16, textAlign: 'right', border: '2px dotted rgb(9, 88, 217)', fontWeight: 'bold' }} readOnly={true} />
 								</div>
 							</div>
 						</div>
@@ -49,14 +106,13 @@ const DetailComfirmComponent = (props) => {
 						</div>
 					</div>
 				}
-				open={isOpen} onOk={handleOk} onCancel={handleCancel}
+				open={isOpen} onOk={handleOk} onCancel={handleExit}
 				width={1000}
 				footer={[
-					<Button key='close' onClick={handleCancel}>Đóng</Button>,
+					<Button key='close' onClick={handleExit}>Đóng</Button>,
 					<Button key='cancel' danger onClick={handleCancel}>Hủy đơn</Button>,
 					<Button key='submit' type="primary" onClick={handleOk}>Nhận phòng</Button>
 				]}>
-
 				<div style={{ display: 'flex', flexDirection: 'row' }}>
 					<div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
 						<div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
@@ -64,14 +120,14 @@ const DetailComfirmComponent = (props) => {
 								Mã đơn
 							</div>
 							<div style={styles.inputContainer}>
-								<Input value={props.id} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+								<Input value={100_000_000+order.id} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} maxLength={24} readOnly={true} />
 							</div>
 							<div>
 								<div style={{ position: 'absolute', zIndex: 2, backgroundColor: 'white', marginLeft: 24, textDecoration: 'none', color: '#389e0d', fontWeight: 'bold' }}>
 									Ngày đặt
 								</div>
 								<div style={styles.inputContainer}>
-									<Input value="20-9-2001 22:22:00" style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+									<Input value={props.createAt} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 								</div>
 							</div>
 						</div>
@@ -81,13 +137,13 @@ const DetailComfirmComponent = (props) => {
 								Họ tên
 							</div>
 							<div style={styles.inputContainer}>
-								<Input value='Nguyễn Thanh Sang' style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+								<Input value={order.name} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 							</div>
 							<div><div style={{ position: 'absolute', zIndex: 2, backgroundColor: 'white', marginLeft: 24, textDecoration: 'none', color: '#08979c', fontWeight: 'bold' }}>
 								Số điện thoại
 							</div>
 								<div style={styles.inputContainer}>
-									<Input value="0334428102" style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+									<Input value={order.phone} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 								</div>
 							</div>
 						</div>
@@ -97,14 +153,14 @@ const DetailComfirmComponent = (props) => {
 								Ngày nhận
 							</div>
 							<div style={styles.inputContainer}>
-								<Input value='20/08/2001 12:00' style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+								<Input value={order.checkin} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 							</div>
 							<div>
 								<div style={{ position: 'absolute', zIndex: 2, backgroundColor: 'white', marginLeft: 24, textDecoration: 'none', color: '#0958d9', fontWeight: 'bold' }}>
 									Ngày trả
 								</div>
 								<div style={styles.inputContainer}>
-									<Input value="24/08/2001 11:00" style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+									<Input value={order.checkout} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 								</div>
 							</div>
 						</div>
@@ -113,14 +169,14 @@ const DetailComfirmComponent = (props) => {
 						<div style={{ display: 'flex', border: '2px solid red', }}></div>
 						<div style={{ display: 'flex', flex: 10, flexDirection: 'column', paddingLeft: 32 }}>
 							<div style={{ maxHeight: 32 }}>
-								<p style={{ fontSize: 16, paddingRight: 16, color: '#006d75', fontWeight: 'bold' }}>{rooms[0].numDays} Đêm</p>
+								<p style={{ fontSize: 16, paddingRight: 16, color: '#006d75', fontWeight: 'bold' }}>{orderDetail !== "" ? orderDetail[0].numDay : 0} Đêm</p>
 							</div>
 							<div style={{ display: 'flex', flex: 3, flexDirection: 'column' }}>
-								{rooms.map((room, i) => {
+								{orderDetail.map((room, i) => {
 									total += parseFloat(room.price) * parseInt(room.quantity)
 									return (
-										<div key={room._id} style={{ display: 'flex', flex: 1, flexDirection: 'row', maxHeight: 40 }}>
-											<p style={{ display: 'flex', flex: 5, justifyContent: 'flex-start', fontWeight: 'bold', color: '#001d66' }}>{room.name} x {room.quantity} phòng</p>
+										<div key={room.roomTypeId} style={{ display: 'flex', flex: 1, flexDirection: 'row', maxHeight: 40 }}>
+											<p style={{ display: 'flex', flex: 5, justifyContent: 'flex-start', fontWeight: 'bold', color: '#001d66' }}>{room.roomName} x {room.quantity} phòng</p>
 											<p style={{ display: 'flex', flex: 1, justifyContent: 'flex-end', fontWeight: 'bold', color: '#73d13d', paddingRight: 16 }}>{formatMoney(room.price)}</p>
 										</div>
 									)
@@ -135,17 +191,19 @@ const DetailComfirmComponent = (props) => {
 									<p style={{ fontSize: 16 }}>Tổng tiền</p>
 								</div>
 								<div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end', fontWeight: 'bold', color: '#73d13d' }}>
-									<p style={{ fontSize: 16, paddingRight: 16 }}>{formatMoney(total * rooms[0].numDays)} VNĐ</p>
+									<p style={{ fontSize: 16, paddingRight: 16 }}>{formatMoney(total * orderDetail[0].numDay)} VNĐ</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</Modal>
+			</Modal>) :  <></>}
+			<Modal title="Bạn có đồng ý 'huỷ đơn' ? " open={isCancel} onCancel={notCancel} onOk={confirmCancel}></Modal>
+			<Modal title="Bạn có đồng ý 'nhận phòng' ? " open={isConfirm} onCancel={notConfirm} onOk={confirm}></Modal>
 		</>
 	);
 }
-
+)
 const styles = ({
 	labelContainer: {
 		backgroundColor: "white", // Same color as background

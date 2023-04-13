@@ -6,10 +6,10 @@ import '../../../index.css';
 import ItemsTab from '../../../Constants/ItemsTab';
 import HeaderContainer from '../../../Containers/CoreContainer/HeaderContainer';
 import FooterContainer from '../../../Containers/CoreContainer/FooterContainer';
-import ComfirmContainer from '../../../Containers/OrderContainer/ComfirmContainer';
+import ComfirmContainer from '../../../Containers/OrderContainer/ConfirmContainer';
 const { Sider, Content } = Layout;
 
-const OrderComfirmPage = React.memo(() => {
+const OrderConfirmPage = React.memo(() => {
   const [current, setCurrent] = useState('1');
   const clickTab = (e) => {
     setCurrent(e.key);
@@ -54,4 +54,4 @@ const styleSheet = {
   }
 }
 
-export default OrderComfirmPage;
+export default OrderConfirmPage;

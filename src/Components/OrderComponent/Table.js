@@ -19,24 +19,24 @@ const TableCom = React.memo((props) => {
     { title: 'Ngày nhận', dataIndex: 'checkin', align: 'center', },
     { title: 'Ngày trả', dataIndex: 'checkout', align: 'center', },
     {
-      title: 'Xem chi tiết', dataIndex: '_id', align: 'center',
-      render: (_id) => {
+      title: 'Xem chi tiết', dataIndex: 'id', align: 'center',
+      render: ((id) => {
         // (() => {
         switch (props.status) {
           case Constants.STATUS.AWAIT:
-            return (<DetailAwaitComponent id={_id} />)
+            return (<DetailAwaitComponent id={id} />)
           case Constants.STATUS.COMFIRM:
-            return (<DetailComfirmComponent id={_id} />)
+            return (<DetailComfirmComponent id={id} />)
           case Constants.STATUS.ONGOING:
-            return (<DetailOngoingComponent id={_id} />)
+            return (<DetailOngoingComponent id={id} />)
           case Constants.STATUS.COMPLETE:
-            return (<DetailCompleteComponent id={_id} />)
+            return (<DetailCompleteComponent id={id} />)
           case Constants.STATUS.CANCEL:
-            return (<DetailCancelComponent id={_id} />)
+            return (<DetailCancelComponent id={id} />)
           default:
             return
         }
-      },
+      }),
     }
   ];
 
@@ -55,13 +55,15 @@ const TableCom = React.memo((props) => {
       setLoading(true);
       const url = Constants.host + Constants.URL_ORDER_BY_HOTEL;
       const Authorization = localStorage.getItem('authorization');
-
+      setTimeout(() => {
+  
       axios.get(url, {
         method: 'GET',
         withCredentials: false,
         params: {
           status: props.status,
-          page: tableParams.pagination.current - 1,
+          page: tableParams.pagination.current,
+          size: 7
         },
         headers: {
           'Authorization': Authorization,
@@ -84,8 +86,10 @@ const TableCom = React.memo((props) => {
           navigate('/login');
           return;
         });
+      }, 500);
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableParams.pagination.current, props.reload]);
 
   const handleTableChange = (pagination, filters, sorter) => {
@@ -97,7 +101,7 @@ const TableCom = React.memo((props) => {
   };
 
   return (
-    <Table columns={detailButton} rowKey={(record) => record._id}
+    <Table columns={detailButton} rowKey={(record) => record.id}
       dataSource={data} pagination={tableParams.pagination}
       loading={loading} onChange={handleTableChange}
       style={{ width: '95%' }} size='small'

@@ -7,7 +7,7 @@ import StatisticPage from '../Pages/Hotel/StatisticPage';
 import HotelPage from '../Pages/Hotel/HotelPage';
 import DashBoardPage from '../Pages/Hotel/DashboardPage';
 import OrderAwaitPage from '../Pages/Hotel/Order/OrderAwaitPage';
-import OrderComfirmPage from '../Pages/Hotel/Order/OrderComfirmPage';
+import OrderConfirmPage from '../Pages/Hotel/Order/OrderConfirmPage';
 import OrderOngoingPage from '../Pages/Hotel/Order/OrderOngoingPage';
 import OrderCompletePage from '../Pages/Hotel/Order/OrderCompletePage';
 import OrderCancelPage from '../Pages/Hotel/Order/OrderCancelPage';
@@ -31,7 +31,7 @@ const Router = React.memo(() => {
             <Route path='/hotel' element={<HotelPage />} />
             <Route path='/statistic' element={<StatisticPage />} />
             <Route path='/order/await' element={<OrderAwaitPage />} />
-            <Route path='/order/comfirm' element={<OrderComfirmPage />} />
+            <Route path='/order/confirm' element={<OrderConfirmPage />} />
             <Route path='/order/ongoing' element={<OrderOngoingPage />} />
             <Route path='/order/complete' element={<OrderCompletePage />} />
             <Route path='/order/cancel' element={<OrderCancelPage />} />

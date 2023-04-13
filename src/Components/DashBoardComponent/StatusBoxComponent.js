@@ -4,11 +4,12 @@ import {
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Colors from "../../Constants/Colors";
+import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 const StatusBoxComponent = (props) => {
-  
-  const click1 = () => {console.log(props.linkNext)}
+  const navigate = useNavigate()
+  const click1 = () => {return navigate('/order/'+props.linkNext)}
   const click2 = () => {console.log(props.linkReload)}
 
   return (

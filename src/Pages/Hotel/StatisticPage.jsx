@@ -6,7 +6,6 @@ import '../../index.css';
 import ItemsTab from '../../Constants/ItemsTab';
 import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
 import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
-import { useEffect } from 'react';
 const { Sider, Content } = Layout;
 
 const StatisticPage = React.memo(() => {

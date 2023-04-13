@@ -9,7 +9,6 @@ import { Space, Badge, Avatar, Button } from 'antd';
 import Search from 'antd/es/input/Search';
 import { Layout } from 'antd';
 import '../../index.css';
-import { useEffect } from 'react';
 
 const { Header } = Layout;
 

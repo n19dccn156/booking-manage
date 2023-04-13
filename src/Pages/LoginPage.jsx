@@ -22,7 +22,7 @@ const LoginPage = () => {
 		setClickLogin(true);
 		axios({
 			method: 'POST',
-			url: Constants.host + '/api/v1/login-page/signin',
+			url: Constants.host + '/api/v1/users/signin',
 			data: { 'username': username, 'password': password }
 		})
 			.then((res) => {
@@ -30,7 +30,7 @@ const LoginPage = () => {
 					setClickLogin(false);
 					message.loading(<Alert message='Đăng nhập thất bại' type='error' description='Không có quyền truy cập' showIcon />)
 				} else {
-					localStorage.setItem('userId', res.data.data.userId)
+					// localStorage.setItem('userId', res.data.data.userId)
 					localStorage.setItem('roleId', res.data.data.roleId)
 					localStorage.setItem('authorization', res.headers.authorization)
 					message.loading(<Alert message='Đăng nhập thành công' type='success' showIcon />)

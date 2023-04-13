@@ -8,7 +8,7 @@ const ChartContainer = () => {
     <div>
       <Row style={styleSheet.row}>
         <div style={{display: "flex", flexDirection: "column", marginRight: 16, flex: 2, backgroundColor: '#f0f0f0', borderRadius: 8}}>
-          <Title style={{display: "flex", justifyContent: "center"}} level={5}>Doanh thu</Title>
+          <Title style={{display: "flex", justifyContent: "center"}} level={5}>Doanh thu 12 tháng (triệu/tháng)</Title>
           <ColumnChart/>
         </div> 
         <div style={{display: "flex", flexDirection: "column", flex: 1, maxWidth: 600, backgroundColor: '#f0f0f0', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, marginRight: 0}}>

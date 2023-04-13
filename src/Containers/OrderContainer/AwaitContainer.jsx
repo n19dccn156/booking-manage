@@ -2,13 +2,14 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Tabs} from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Colors from '../../Constants/Colors';
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import TableCom from '../../Components/OrderComponent/Table';
 import Constants from '../../Constants/Constants';
+import { useSelector } from 'react-redux';
 const { Content } = Layout;
 
 const items2 = [
@@ -19,7 +20,7 @@ const items2 = [
   },
   {
     key: '1',
-    label: (<Link style={{ color: 'black' }} to={'/order/comfirm'}>Đặt thành công</Link>),
+    label: (<Link style={{ color: 'black' }} to={'/order/confirm'}>Đặt thành công</Link>),
     //   children: `Content of Tab Pane 2`,
   },
   {
@@ -39,8 +40,15 @@ const items2 = [
   },
 ];
 
-const AwaitContainer = () => {
+const AwaitContainer = React.memo(() => {
   const [reload, setReload] = useState(false);
+  const update = useSelector((state) => state.reloadAwait);
+  
+  useEffect(() => {
+    console.log(update);
+    setReload(!reload)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update])
 
   return (
     <Content style={styleSheet.content}>
@@ -63,7 +71,7 @@ const AwaitContainer = () => {
       </div>
     </Content>
   );
-};
+});
 
 const styleSheet = {
   content: {
