@@ -51,14 +51,14 @@ const ColumnChart = () => {
       res.data.data.forEach((dt) => {
         response.forEach((i) => {
           if(dt.month === i.month) {
-            i['Doanh thu'] = dt.total/1000;
+            i['Doanh thu'] = dt.total/1_000_000;
           }
         })
 
-        // neu co data thi se xoa dong nay
-        const index = dt.ind - 1;
-        // response[index].month = dt.month;
-        response[index]['Doanh thu'] = dt.total/1_000_000;
+        // // neu co data thi se xoa dong nay
+        // const index = dt.ind - 1;
+        // // response[index].month = dt.month;
+        // response[index]['Doanh thu'] = dt.total/1_000_000.0;
       })
 
       setRevenue(response);

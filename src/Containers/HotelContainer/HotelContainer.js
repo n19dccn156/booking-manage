@@ -1,7 +1,9 @@
-import { AimOutlined, BankOutlined, CloseCircleFilled, FormOutlined, LoginOutlined, LogoutOutlined, PhoneOutlined, PlusOutlined, SaveOutlined, UploadOutlined } from "@ant-design/icons";
-import { Badge, Button, Image, Input, Switch, Tag, Upload, Space } from "antd";
+import { AimOutlined, BankOutlined, FormOutlined, LoginOutlined, LogoutOutlined, PhoneOutlined, SaveOutlined, UploadOutlined } from "@ant-design/icons";
+import { Badge, Button, Image, Input, Switch, Upload } from "antd";
 import { useState } from "react";
 import Colors from "../../Constants/Colors";
+import FacilitiesContainer from "./FacilitiesContainer";
+import DescriptionContainer from "./DescriptionContainer";
 
 const HotelContainer = () => {
   const [checked, setChecked] = useState(true)
@@ -22,86 +24,41 @@ const HotelContainer = () => {
             <Switch style={{backgroundColor: checked === true ? '#52c41a' : '#bfbfbf' }} checkedChildren="Mở" unCheckedChildren="Đóng" checked={checked} onClick={() => setChecked(!checked)} />
           </div>
           <Button danger style={{ marginLeft: 8 }} type='primary' icon={<SaveOutlined/>} disabled>Cập nhật</Button>
+          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
           <Input style={{ display: 'flex', flex: 5 }} prefix={<BankOutlined style={{ color: '#bfbfbf' }} />} value='Khách sạn Phương Nam' readOnly />
-          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
+          {/* <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button> */}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
           <Input style={{ display: 'flex', flex: 5 }} prefix={<AimOutlined style={{ color: '#bfbfbf' }} />} value='138 Hùng Vương, xã Ngũ Phụng, huyện Phú Quý, tỉnh Bình Thuận' readOnly />
-          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
+          {/* <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button> */}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<PhoneOutlined style={{ color: '#bfbfbf' }} />} value='0334-428-102' readOnly />
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<PhoneOutlined style={{ color: '#bfbfbf' }} />} value='0252-3768-083' readOnly />
-          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
+          <Input style={{ display: 'flex', flex: 1, marginRight: 16 }} prefix={<PhoneOutlined style={{ color: '#bfbfbf' }} />} value='0334-428-102' readOnly />
+          <Input style={{ display: 'flex', flex: 1 }} prefix={<PhoneOutlined style={{ color: '#bfbfbf' }} />} value='0252-3768-083' readOnly />
+          {/* <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button> */}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<LoginOutlined style={{ color: '#bfbfbf' }} />} value='14h : 00' readOnly />
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<LogoutOutlined style={{ color: '#bfbfbf' }} />} value='12h : 00' readOnly />
-          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
+          <Input style={{ display: 'flex', flex: 1, marginRight: 16 }} prefix={<LoginOutlined style={{ color: '#bfbfbf' }} />} value='14h : 00' readOnly />
+          <Input style={{ display: 'flex', flex: 1 }} prefix={<LogoutOutlined style={{ color: '#bfbfbf' }} />} value='12h : 00' readOnly />
+          {/* <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button> */}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<AimOutlined style={{ color: '#bfbfbf' }} />} value='108.43765232' readOnly />
-          <Input style={{ display: 'flex', flex: 2.3 }} prefix={<AimOutlined style={{ color: '#bfbfbf' }} />} value='10.123742942' readOnly />
-          <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
+          <Input style={{ display: 'flex', flex: 1, marginRight: 16 }} prefix={<AimOutlined style={{ color: '#bfbfbf' }} />} value='108.43765232' readOnly />
+          <Input style={{ display: 'flex', flex: 1 }} prefix={<AimOutlined style={{ color: '#bfbfbf' }} />} value='10.123742942' readOnly />
+          {/* <Button style={{ marginLeft: 8 }} type='primary' icon={<FormOutlined/>}>Thay đổi</Button> */}
         </div>
-
       </div>
+
       <div style={{ display: 'flex', flex: 3, flexDirection: 'column' }}>
-        <div style={{ display: 'flex', flex: 2, padding: '16px 16px', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-            <div style={{ fontWeight: 'bold', fontSize: 16, color: '#001d66' }}>
-              Danh sách tiện ích
-              <Button style={{marginLeft: 24}} type='primary' icon={<PlusOutlined/>}>Thêm</Button>
-            </div>
-            <div style={{border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
-          </div>
-          <div style={{ display: 'flex', flex: 4, flexDirection: 'column', marginTop: 16 }}>
-            <Space style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-              <Tag closable closeIcon={<CloseCircleFilled/>} style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag closable closeIcon={<CloseCircleFilled/>} style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag closable closeIcon={<CloseCircleFilled/>} style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag closable closeIcon={<CloseCircleFilled/>} style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-            </Space>
-            <Space style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-            </Space>
-            <Space style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-            </Space>
-            <Space style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-              <Tag style={{ display: 'flex', width: 120, height: 30, fontSize: 24, justifyContent: 'center' }} color="magenta">magenta</Tag>
-            </Space>
-          </div>
-        </div>
-        <div style={{ display: 'flex', flex: 3, padding: '16px 16px', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-            <div style={{ fontWeight: 'bold', fontSize: 16, color: '#001d66'}}>
-              Nội dung mô tả
-              <Button style={{marginLeft: 24}} type='primary' icon={<FormOutlined/>}>Thay đổi</Button>
-            </div>
-            <div style={{ border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
-          </div>
-          <Input.TextArea style={{display: 'flex', flex: 4, paddingBottom: 16 }} defaultValue='Desciption' />
-        </div>
+        <FacilitiesContainer/>
+        <DescriptionContainer/>
       </div>
     </div>
   );
