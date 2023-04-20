@@ -208,7 +208,6 @@ const AccountPage = () => {
             ) : (
               <Image style={{display: 'flex', flex: 7, borderRadius: 4 }} src={urlBase64} />
             )}
-            {/* <Image style={{display: 'flex', flex: 7, borderRadius: 4 }} src={avatar} /> */}
             <div style={{display: 'flex', flex: 1, flexDirection: 'column', marginTop: 16, marginBottom: 32}}>
               <Upload type='drag' name="file" 
                 style={{backgroundColor: Colors.bgBelow}} 
