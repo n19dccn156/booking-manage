@@ -9,10 +9,14 @@ import { Space, Badge, Avatar, Button } from 'antd';
 import Search from 'antd/es/input/Search';
 import { Layout } from 'antd';
 import '../../index.css';
+import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
 const HeaderContainer = React.memo(() => {
+
+	const navigate = useNavigate();
+
 	return (
 		<Header style={styleSheet.header}>
 			<div style={styleSheet.search}>
@@ -29,9 +33,8 @@ const HeaderContainer = React.memo(() => {
 				</Space>
 			</div>
 			<div style={styleSheet.avatar}>
-				<Button type='text'>{"Nguyễn Sang Thanh".length < 15 ? "Nguyễn Sang Thanh" : "Nguyễn Sang Thanh".substring(0, 15)+"..."}</Button>
-				{/* <Avatar shape='circle' src="https://joesch.moe/api/v1/random" /> */}
-				<Avatar shape='circle' src="https://avatars.dicebear.com/api/bottts/stefan.svg" />
+				<Button type='text' onClick={() => navigate('/account')}>{"Nguyễn Sang Thanh".length < 15 ? "Nguyễn Sang Thanh" : "Nguyễn Sang Thanh".substring(0, 15)+"..."}</Button>
+				<Avatar shape='circle' src="https://avatars.dicebear.com/api/bottts/stefan.svg" onClick={() => navigate('/account')}/>
 			</div>
 		</Header>
 	)

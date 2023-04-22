@@ -1,7 +1,7 @@
 import {
   DashboardOutlined,
   HomeOutlined,
-  LineChartOutlined,
+//   LineChartOutlined,
   ProfileOutlined,
 	LogoutOutlined,
 	UserOutlined,
@@ -24,11 +24,11 @@ const ItemsTab = [
 		key: '2',
 		icon: <HomeOutlined />,
 	},
-	{
-		label: (<Link to={'/statistic'}  className='nav-link'>Thống kê</Link>),
-		key: '4',
-		icon: <LineChartOutlined />,
-	},
+	// {
+	// 	label: (<Link to={'/statistic'}  className='nav-link'>Thống kê</Link>),
+	// 	key: '4',
+	// 	icon: <LineChartOutlined />,
+	// },
 	{
 		label: (<Link to={'/account'}  className='nav-link'>Tài khoản</Link>),
 		key: '6',
