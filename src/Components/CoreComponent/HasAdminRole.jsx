@@ -22,7 +22,7 @@ const HasAdminRole = () => {
     navigate('/')
   } else if (access_token !== null && access_token.startsWith("Bearer")) {
     axios({
-      method: "POST",
+      method: 'GET',
       url: Constants.host + Constants.URL_AUTHOZ,
       headers: { Authorization: access_token }
     })

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-import { InboxOutlined, SaveOutlined, UserOutlined, AuditOutlined, CalendarOutlined, MailOutlined, PhoneOutlined, KeyOutlined, DeleteOutlined } from "@ant-design/icons";
+import { InboxOutlined, SaveOutlined, UserOutlined, AuditOutlined, CalendarOutlined, MailOutlined, PhoneOutlined, KeyOutlined, CloseOutlined } from "@ant-design/icons";
 import { Layout, Menu, Image, Typography, Upload, Button, Input, message } from 'antd';
 import Colors from "../../Constants/Colors";
 import '../../index.css';
-import ItemsTab from '../../Constants/ItemsTab';
+import ItemsTab, { ItemsTabAdmin } from '../../Constants/ItemsTab';
 import HeaderContainer from '../../Containers/CoreContainer/HeaderContainer';
+import HeaderContainer2 from '../../Containers/HomePageContainer/HeaderContainer';
 import FooterContainer from '../../Containers/CoreContainer/FooterContainer';
 import axios from 'axios';
 import Constants from '../../Constants/Constants';
+import { useNavigate } from 'react-router-dom';
 const { Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -25,6 +27,7 @@ const userObject = {
 }
 
 const AccountPage = () => {
+  const navigate = useNavigate();
   const [isUpdateImage, setIsUpdateImage] = useState(false);
   const [isUpdateInfo, setIsUpdateInfo] = useState(false);
   const [user, setUser] = useState(userObject);
@@ -59,12 +62,10 @@ const AccountPage = () => {
     }
     return true;
   }
-
   const clearUpdateImage = () => {
     setIsUpdateImage(false);
     setUrlBase64('');
   }
-
   const clearUpdateInfo = () => {
     setFirstName(user.firstname);
     setLastName(user.lastname);
@@ -114,11 +115,13 @@ const AccountPage = () => {
       setIsUpdateInfo(false);
       setIsUpdateImage(false);
     })
-    .catch(err => {})
+    .catch(err => {
+      navigate('/login')
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const updateInfo = () => {
-
     axios({
       method: 'PATCH',
       url: Constants.host+"/api/v1/users",
@@ -189,18 +192,26 @@ const AccountPage = () => {
 
   return (
     <Layout style={{ display: 'flex', flexDirection: 'row', backgroundColor: Colors.bgBelow }}>
-      <Sider theme='dark' width={180} style={{overflow: 'auto', position: 'fixed', height: '100vh'}}>
+      {localStorage.getItem('roleId') !== 'CUSTOMER' ?
+      (<Sider theme='dark' width={180} style={{overflow: 'auto', position: 'fixed', height: '100vh'}}>
         <div className="logo"></div>
-        <Menu theme="dark" selectedKeys={['6']} mode='inline' items={ItemsTab} />
-      </Sider>
-      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left', marginLeft: 180 }}>
-        <HeaderContainer />
+        <Menu theme="dark" selectedKeys={['6']} mode='inline' items={localStorage.getItem("roleId") === "HOTEL" ? ItemsTab : ItemsTabAdmin} />
+      </Sider>)
+      :
+      <></>
+      }
+      <div style={{ display: 'flex', flex: 5, flexDirection: 'column', justifyContent: 'left', marginLeft: localStorage.getItem('roleId') === 'CUSTOMER' ? 0: 180 }}>
+        {localStorage.getItem('roleId') !== 'CUSTOMER' ?
+        (<HeaderContainer />)
+        :
+        (<HeaderContainer2/>)
+        }
         <Content style={styleSheet.content}>
           <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', margin: '0 32px 0 32px'}}>
             <Title level={4} style={{color: '#001d66', fontWeight: 'bold'}}>
               Ảnh đại diện
               <Button type='primary' icon={<SaveOutlined />} style={{marginLeft: 24}} disabled={!isUpdateImage} onClick={() => updateAvatar()}>Cập nhật</Button>
-              <Button danger type='primary' icon={<DeleteOutlined />} style={{marginLeft: 20}} disabled={!isUpdateImage} onClick={() => clearUpdateImage()}>Xóa</Button>
+              <Button danger type='primary' icon={<CloseOutlined />} style={{marginLeft: 20}} disabled={!isUpdateImage} onClick={() => clearUpdateImage()}>Hủy</Button>
             </Title>
             <div style={{border: '1px solid', marginBottom: 16}}></div>
             {urlBase64 === '' ? (
@@ -225,7 +236,7 @@ const AccountPage = () => {
             <Title level={4} style={{color: '#001d66', fontWeight: 'bold'}}>
               Thông tin cá nhân
               <Button type='primary' icon={<SaveOutlined />} style={{marginLeft: 24}} disabled={!isUpdateInfo} onClick={() => updateInfo()}>Cập nhật</Button>
-              <Button danger type='primary' icon={<DeleteOutlined />} style={{marginLeft: 20}} disabled={!isUpdateInfo} onClick={() => clearUpdateInfo()}>Xóa</Button>
+              <Button danger type='primary' icon={<CloseOutlined />} style={{marginLeft: 20}} disabled={!isUpdateInfo} onClick={() => clearUpdateInfo()}>Hủy</Button>
             </Title>
             <div style={{border: '1px solid'}}></div>
             

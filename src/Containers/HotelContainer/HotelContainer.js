@@ -1,4 +1,4 @@
-import { AimOutlined, BankOutlined, FormOutlined, LoginOutlined, LogoutOutlined, PhoneOutlined, CloseCircleOutlined, UploadOutlined, SaveOutlined, StarOutlined } from "@ant-design/icons";
+import { AimOutlined, BankOutlined, FormOutlined, LoginOutlined, LogoutOutlined, PhoneOutlined, UploadOutlined, SaveOutlined, StarOutlined, CloseOutlined } from "@ant-design/icons";
 import { Badge, Button, Image, Input, Upload, message } from "antd";
 import { useEffect, useState } from "react";
 import Colors from "../../Constants/Colors";
@@ -34,6 +34,7 @@ const HotelContainer = () => {
   const [address, setAddress] = useState('');
   const [urlBase64, setUrlBase64] = useState('');
 
+  const [id, setId] = useState('');
   const [phone, setPhone] = useState('');
   const [rating, setRating] = useState('');
   const [checkin, setCheckin] = useState('');
@@ -163,6 +164,7 @@ const HotelContainer = () => {
       hotel.active = data.active;
       hotel.userId = data.userId;
 
+      setId(data.id)
       setName(data.name);
       setAddress(data.address);
       setAvatar(Constants.host+data.avatar);
@@ -203,7 +205,7 @@ const HotelContainer = () => {
               <><Badge status='processing' color='red' text='Dừng hoạt động'/></>}
           </div>
           {isUpdate ? btnUpdate : btnChange}
-          <Button style={{ marginLeft: 8 }} type='primary' danger icon={<CloseCircleOutlined/>} disabled={!isUpdate} onClick={() => clickCancel()}>Xóa</Button>
+          <Button style={{ marginLeft: 8 }} type='primary' danger icon={<CloseOutlined/>} disabled={!isUpdate} onClick={() => clickCancel()}>Hủy</Button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 16 }}>
@@ -231,7 +233,11 @@ const HotelContainer = () => {
       </div>
 
       <div style={{ display: 'flex', flex: 3, flexDirection: 'column' }}>
-        <FacilitiesContainer/>
+        {id !== '' ?
+          (<FacilitiesContainer id={id}/>)
+          :
+          (<></>)
+        }
         <DescriptionContainer/>
       </div>
     </div>

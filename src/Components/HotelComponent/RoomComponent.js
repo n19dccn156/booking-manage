@@ -96,7 +96,7 @@ const RoomComponent = (props) => {
   }
   
   return (
-    <div style={{ display: 'flex', margin: '16px 0 32px 16px', backgroundColor: '#f5f5f5', borderRadius: 5 }}>
+    <div style={{ display: 'flex', margin: '16px 0 32px 16px', backgroundColor: '#fafafa', borderRadius: 5 }}>
       <Image style={{ display: 'flex', flex: 1, maxWidth: 200, height: 200, borderRadius: 5, margin: '8px 0 8px 8px' }} src={urlBase64 === '' ? Constants.host + avatar ?? '/api/v1/images/1' : urlBase64} />
       <div style={{ display: 'flex', flexDirection: 'column', padding: '0 16px', justifyContent: 'space-evenly' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -136,7 +136,7 @@ const RoomComponent = (props) => {
             :
             (<Button type='primary' icon={<FormOutlined />} onClick={() => clickChange()}>Thay Đổi</Button>)
           }
-          <Button danger type='primary' icon={<CloseOutlined />} onClick={() => clickCancel()} disabled={!isUpdate}>Xóa</Button>
+          <Button danger type='primary' icon={<CloseOutlined />} onClick={() => clickCancel()} disabled={!isUpdate}>Hủy</Button>
         </div>
       </div>
     </div>

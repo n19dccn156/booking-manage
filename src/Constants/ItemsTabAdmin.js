@@ -1,13 +1,19 @@
 import {
-  HomeOutlined,
+	HomeOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const ItemsTabAdmin = [
 	{
-		label: (<NavLink to={'/admin'}  className='nav-link'>QL khách sạn</NavLink>),
+		label: (<Link to={'/admin'}  className='nav-link'>QL khách sạn</Link>),
 		key: '0',
 		icon: <HomeOutlined />,
+	},
+	{
+		label: (<Link to={'/account'}  className='nav-link'>Tài khoản</Link>),
+		key: '6',
+		icon: <UserOutlined />,
 	},
 ];
 

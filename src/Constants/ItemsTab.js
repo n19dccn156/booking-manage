@@ -1,10 +1,10 @@
 import {
   DashboardOutlined,
   HomeOutlined,
-//   LineChartOutlined,
   ProfileOutlined,
 	LogoutOutlined,
 	UserOutlined,
+	AppstoreOutlined,
 } from '@ant-design/icons';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -24,11 +24,24 @@ const ItemsTab = [
 		key: '2',
 		icon: <HomeOutlined />,
 	},
-	// {
-	// 	label: (<Link to={'/statistic'}  className='nav-link'>Thống kê</Link>),
-	// 	key: '4',
-	// 	icon: <LineChartOutlined />,
-	// },
+	{
+		label: (<Link to={'/account'}  className='nav-link'>Tài khoản</Link>),
+		key: '6',
+		icon: <UserOutlined />,
+	},
+	{
+		label: (<Link to={'/logout'}  className='nav-link'>Đăng xuất</Link>),
+		key: '7',
+		icon: <LogoutOutlined />,
+	}
+];
+
+export const ItemsTabAdmin = [
+	{
+		label: (<Link to={'/admin'}  className='nav-link'>QL Khách sạn</Link>),
+		key: '5',
+		icon: <AppstoreOutlined />,
+	},
 	{
 		label: (<Link to={'/account'}  className='nav-link'>Tài khoản</Link>),
 		key: '6',

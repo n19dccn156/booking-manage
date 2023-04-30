@@ -76,7 +76,7 @@ const DetailOngoingComponent = React.memo((props) => {
 									Trạng thái
 								</div>
 								<div style={styles.inputContainer}>
-									<Input value={order.status.name} style={{ height: 48, color: '#8c8c8c', fontSize: 16, textAlign: 'right', border: '2px dotted rgb(9, 88, 217)', fontWeight: 'bold' }} readOnly={true} />
+									<Input value={order.createdAt} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 								</div>
 							</div>
 						</div>

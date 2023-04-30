@@ -80,7 +80,7 @@ const DetailCompleteComponent = React.memo((props) => {
 									Ngày đặt
 								</div>
 								<div style={styles.inputContainer}>
-									<Input value={props.createAt} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
+									<Input value={order.createdAt} style={{ height: 48, color: '#8c8c8c', fontSize: 16 }} readOnly={true} />
 								</div>
 							</div>
 						</div>

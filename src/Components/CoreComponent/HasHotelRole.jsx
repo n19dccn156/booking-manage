@@ -18,7 +18,10 @@ const HasHotelRole = () => {
   } else if(loggedIn === Constants.EMPLOYEE) {
     // navigate('/employee')
     return <Navigate to='/employee'/>
-  }  else if(loggedIn === Constants.HOTEL) {
+  } else if(loggedIn === Constants.CUSTOMER) {
+    // navigate('/employee')
+    return <Navigate to='/home'/>
+  } else if(loggedIn === Constants.HOTEL) {
     return <Outlet/>
   } else if (access_token !== null && access_token.startsWith("Bearer ")) {
     axios({
@@ -36,6 +39,8 @@ const HasHotelRole = () => {
       } if (res.data.data === 'HOTEL') {
         // console.log('HOTEL')
         dispatch(HotelAction())
+      } if (res.data.data === 'CUSTOMER') {
+        navigate('/home')
       } else {
         return <Navigate to='/login'/>
       }

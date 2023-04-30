@@ -2,12 +2,13 @@ import { Alert, Button, Checkbox, Form, Input, Layout, Typography, message } fro
 import axios from "axios";
 import React, { useState } from "react";
 
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Colors from '../Constants/Colors';
 import Constants from '../Constants/Constants';
 import '../index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminAction, EmployeeAction, HotelAction, LogoutAction } from '../Actions/LoginAction';
+import HeaderContainer2 from '../Containers/HomePageContainer/HeaderContainer';
 const { Footer } = Layout;
 const { Title } = Typography;
 
@@ -15,6 +16,7 @@ const LoginPage = () => {
 
 	const loggedIn = useSelector((state) => state.loggedIn);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [clickLogin, setClickLogin] = useState(false);
@@ -26,12 +28,19 @@ const LoginPage = () => {
 			data: { 'username': username, 'password': password }
 		})
 			.then((res) => {
+				const orders = localStorage.getItem('orders');
+				localStorage.setItem('userId', res.data.data.id);					localStorage.setItem('roleId', res.data.data.roleId)
+				localStorage.setItem('roleId', res.data.data.roleId);
+				localStorage.setItem('authorization', res.headers.authorization);
+				if(orders !== null && orders !== undefined && orders.length > 2) {
+					navigate('/confirm');
+					return;
+				}
 				if (res.data.data.roleId === 'CUSTOMER') {
-					setClickLogin(false);
-					message.loading(<Alert message='Đăng nhập thất bại' type='error' description='Không có quyền truy cập' showIcon />)
+					navigate('/home')
 				} else {
 					// localStorage.setItem('userId', res.data.data.userId)
-					localStorage.setItem('roleId', res.data.data.roleId)
+					// localStorage.setItem('roleId', res.data.data.roleId)
 					localStorage.setItem('authorization', res.headers.authorization)
 					message.loading(<Alert message='Đăng nhập thành công' type='success' showIcon />)
 					if (res.data.data.roleId === Constants.HOTEL) {
@@ -65,7 +74,8 @@ const LoginPage = () => {
 		return <Navigate to='/admin' />
 	} else {
 		return (
-		<Layout style={{ width: '100vw', height: '100vh', backgroundColor: Colors.bgBelow }}>
+		<Layout style={{ width: '100vw', height: '100vh', backgroundColor: 'white' }}>
+			<HeaderContainer2/>
 			<div style={{ flexDirection: 'column', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				<div style={{ backgroundColor: Colors.bgAbove, width: 500, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', borderRadius: 10 }}>
 					<Title level={1} style={{ display: 'flex', justifyContent: 'center', alignItems: 'start' }}>Đăng nhập</Title>

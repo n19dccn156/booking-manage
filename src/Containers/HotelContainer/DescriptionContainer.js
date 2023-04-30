@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CloseCircleOutlined, FormOutlined, SaveOutlined } from "@ant-design/icons";
+import { CloseOutlined, FormOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Input, message } from 'antd';
 import axios from 'axios';
 import Constants from '../../Constants/Constants';
@@ -66,7 +66,7 @@ const DescriptionContainer = () => {
           <div style={{ fontWeight: 'bold', fontSize: 16, color: '#001d66' }}>
             Nội dung mô tả
             {isUpdate ? btnUpdate : btnChange}
-            <Button style={{ marginLeft: 24 }} type='primary' icon={<CloseCircleOutlined />} disabled={!isUpdate} danger onClick={() => clickCancel()}>Xóa</Button>
+            <Button style={{ marginLeft: 24 }} type='primary' icon={<CloseOutlined />} disabled={!isUpdate} danger onClick={() => clickCancel()}>Hủy</Button>
           </div>
           <div style={{ border: '1px solid rgb(0, 29, 102)', marginTop: 8 }}></div>
         </div>

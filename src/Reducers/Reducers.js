@@ -4,6 +4,8 @@ import OpenModalReducer from "./ModalReducer";
 import ReloadAwaitReducer from "./Reload/ReloadAwait";
 import ReloadConfirmReducer from "./Reload/ReloadConfirm";
 import ReloadOngoingReducer from "./Reload/ReloadOngoing";
+import FindHotelsReducer from "./FindHotelsReducer";
+import AddRoomReducer from "./AddRoomReducer";
 
 
 const Reducers = {
@@ -13,6 +15,8 @@ const Reducers = {
   "reloadAwait": ReloadAwaitReducer,
   "reloadConfirm": ReloadConfirmReducer,
   "reloadOngoing": ReloadOngoingReducer,
+  "findHotel": FindHotelsReducer,
+  "addRoom": AddRoomReducer,
 };
 
 export default Reducers;
